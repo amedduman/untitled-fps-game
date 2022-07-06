@@ -21,21 +21,26 @@ public class PlayerEntity : MonoBehaviour
 
     void Update()
     {
-        
-        Vector3 moveDir = Movement();
 
-        if(_jump.action.inProgress && _controller.isGrounded)
-        {
-            _yDir = _jumpHeight;
-        }
+        Vector3 moveDir = Movement();
         
-        _yDir += Gravity(moveDir);
+        Jump();
+
+        _yDir -= Gravity();
 
         moveDir.y = _yDir;
-        
+
         Rotation();
 
         _controller.Move(moveDir * Time.deltaTime);
+    }
+
+    private void Jump()
+    {
+        if (_jump.action.inProgress && _controller.isGrounded)
+        {
+            _yDir = _jumpHeight;
+        }
     }
 
     private Vector3 Movement()
@@ -47,19 +52,17 @@ public class PlayerEntity : MonoBehaviour
         return moveDir;
     }
 
-    private float Gravity(Vector3 moveDir)
+    private float Gravity()
     {
         if (_controller.isGrounded)
         {
-            moveDir.y -= _groundedGravity;
+            return _groundedGravity;
 
         }
         else
         {
-            moveDir.y -=  _gravityScale;
+            return  _gravityScale;
         }
-
-        return moveDir.y;
     }
 
     private void Rotation()
