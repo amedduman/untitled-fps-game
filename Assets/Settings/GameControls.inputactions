@@ -15,7 +15,7 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "LookAround",
+                    "name": "PlayerRotate",
                     "type": "Value",
                     "id": "18a68192-627e-41a8-8057-a97f56a983e0",
                     "expectedControlType": "Vector2",
@@ -94,9 +94,9 @@
                     "id": "b41a1c83-5433-4985-b7e4-0aa0c409d856",
                     "path": "<Mouse>/delta",
                     "interactions": "",
-                    "processors": "",
+                    "processors": "InvertVector2(invertX=false)",
                     "groups": "",
-                    "action": "LookAround",
+                    "action": "PlayerRotate",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

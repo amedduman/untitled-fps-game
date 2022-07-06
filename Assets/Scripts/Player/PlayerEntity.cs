@@ -5,8 +5,11 @@ using UnityEngine.InputSystem;
 public class PlayerEntity : MonoBehaviour
 {
     [SerializeField] InputActionReference _movement, _lookAround, _jump;
+    [SerializeField] Camera _playerCam;
     [SerializeField] float _speed = .1f;
-    [SerializeField] float _turnSensitivity = .1f;
+    [SerializeField] float _rotateSensitivity = .1f;
+    [SerializeField] float _camPitchSensitivity = .1f;
+    [SerializeField] [Range(0, 120)] float _camPitchLimit = 60;
     [SerializeField] [Min(1)] float _gravityScale = 9.8f;
     [SerializeField] [Min(1)] float _jumpHeight = 10;
     float _groundedGravity = .05f; 
@@ -23,7 +26,7 @@ public class PlayerEntity : MonoBehaviour
     {
 
         Vector3 moveDir = Movement();
-        
+
         Jump();
 
         _yDir -= Gravity();
@@ -31,6 +34,8 @@ public class PlayerEntity : MonoBehaviour
         moveDir.y = _yDir;
 
         Rotation();
+
+        CamPitch();
 
         _controller.Move(moveDir * Time.deltaTime);
     }
@@ -70,7 +75,20 @@ public class PlayerEntity : MonoBehaviour
         Vector2 lookAroundInput = _lookAround.action.ReadValue<Vector2>();
         transform.rotation = Quaternion.Euler
         (0,
-        (transform.rotation.eulerAngles.y + lookAroundInput.x * Time.deltaTime * _turnSensitivity),
+        (transform.rotation.eulerAngles.y + lookAroundInput.x * Time.deltaTime * _rotateSensitivity),
         0);
+    }
+
+    private void CamPitch()
+    {
+        Vector2 lookAroundInput = _lookAround.action.ReadValue<Vector2>();
+
+        float pitchValue = _playerCam.transform.rotation.eulerAngles.x + 
+        lookAroundInput.y * Time.deltaTime * _camPitchSensitivity;
+
+        if(pitchValue < _camPitchLimit || pitchValue > 360 - _camPitchLimit)
+        {
+            _playerCam.transform.localRotation = Quaternion.Euler(pitchValue, 0, 0);
+        }
     }
 }
