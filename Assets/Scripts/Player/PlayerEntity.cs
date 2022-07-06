@@ -4,11 +4,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerEntity : MonoBehaviour
 {
-    [SerializeField] InputActionReference _movement, _lookAround;
+    [SerializeField] InputActionReference _movement, _lookAround, _jump;
     [SerializeField] float _speed = .1f;
     [SerializeField] float _turnSensitivity = .1f;
-    [SerializeField] float _gravity = 9.8f;
-    float _groundedGravity = .05f;
+    [SerializeField] [Min(1)] float _gravityScale = 9.8f;
+    [SerializeField] [Min(1)] float _jumpHeight = 10;
+    float _groundedGravity = .05f; 
+    float _yDir;
     CharacterController _controller;
 
     private void Start()
@@ -19,35 +21,45 @@ public class PlayerEntity : MonoBehaviour
 
     void Update()
     {
+        
         Vector3 moveDir = Movement();
-        moveDir = Gravity(moveDir);
+
+        if(_jump.action.inProgress && _controller.isGrounded)
+        {
+            _yDir = _jumpHeight;
+        }
+        
+        _yDir += Gravity(moveDir);
+
+        moveDir.y = _yDir;
+        
         Rotation();
 
-        _controller.Move(moveDir * _speed * Time.deltaTime);
+        _controller.Move(moveDir * Time.deltaTime);
     }
 
     private Vector3 Movement()
     {
         Vector2 movementInput = _movement.action.ReadValue<Vector2>();
-        Vector3 moveDir = (transform.forward * movementInput.y) +
-        (transform.right * movementInput.x);
+        Vector3 moveDir = (transform.forward * movementInput.y * _speed) +
+        (transform.right * movementInput.x * _speed);
+        
         return moveDir;
     }
 
-    private Vector3 Gravity(Vector3 moveDir)
+    private float Gravity(Vector3 moveDir)
     {
-        Vector3 gravityDir = new Vector3(0, -1, 0);
         if (_controller.isGrounded)
         {
-            moveDir += gravityDir * _groundedGravity;
+            moveDir.y -= _groundedGravity;
 
         }
         else
         {
-            moveDir += gravityDir * _gravity;
+            moveDir.y -=  _gravityScale;
         }
 
-        return moveDir;
+        return moveDir.y;
     }
 
     private void Rotation()

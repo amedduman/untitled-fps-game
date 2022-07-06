@@ -419,6 +419,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _movement: {fileID: 3781930780454219455, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _lookAround: {fileID: 4910631886634671282, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _jump: {fileID: 3688452780633861201, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _speed: 30
   _turnSensitivity: 110
-  _gravity: 9.8
+  _gravity: -9.8
+  _jumpHeight: 60
