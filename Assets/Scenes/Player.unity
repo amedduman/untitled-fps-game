@@ -423,7 +423,5 @@ MonoBehaviour:
   _playerCam: {fileID: 712637071}
   _speed: 20
   _rotateSensitivity: 110
-  _camPitchSensitivity: 110
-  _camPitchLimit: 60
-  _gravityScale: 1
-  _jumpHeight: 100
+  _gravityScale: 40
+  _jumpHeight: 20
