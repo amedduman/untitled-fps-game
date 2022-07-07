@@ -4,12 +4,13 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerEntity : MonoBehaviour
 {
-    [SerializeField] InputActionReference _movement, _lookAround, _jump;
-    [SerializeField] Camera _playerCam;
+    [SerializeField] InputActionReference _movement, _lookAround, _jump, _shoot;
+    [SerializeField] GameObject _gun;
+    [SerializeField] Camera _playerCam; 
     [SerializeField] float _speed = .1f;
     [SerializeField] float _rotateSensitivity = .1f;
-    //[SerializeField] float _camPitchSensitivity = .1f;
-    //[SerializeField] [Range(0, 120)] float _camPitchLimit = 60;
+    [SerializeField] float _camPitchSensitivity = .1f;
+    [SerializeField] [Range(0, 120)] float _camPitchLimit = 60;
     [SerializeField] [Min(1)] float _gravityScale = 9.8f;
     [SerializeField] [Min(1)] float _jumpHeight = 10;
     float _groundedGravity = .05f; 
@@ -35,9 +36,10 @@ public class PlayerEntity : MonoBehaviour
 
         Rotation();
 
-        //CamPitch();
+        CamPitch();
 
         _controller.Move(moveDir * Time.deltaTime);
+        Shoot();
     }
 
     private void Jump()
@@ -79,16 +81,36 @@ public class PlayerEntity : MonoBehaviour
         0);
     }
 
-    // private void CamPitch()
-    // {
-    //     Vector2 lookAroundInput = _lookAround.action.ReadValue<Vector2>();
+        private void Shoot()
+    {
+        if (_shoot.action.triggered)
+        {
+            _gun.GetComponent<IGun>().Shoot();
+        }
+    }
 
-    //     float pitchValue = _playerCam.transform.rotation.eulerAngles.x + 
-    //     lookAroundInput.y * Time.deltaTime * _camPitchSensitivity;
+    private void CamPitch()
+    {
+        Vector2 lookAroundInput = _lookAround.action.ReadValue<Vector2>();
 
-    //     if(pitchValue < _camPitchLimit || pitchValue > 360 - _camPitchLimit)
-    //     {
-    //         _playerCam.transform.localRotation = Quaternion.Euler(pitchValue, 0, 0);
-    //     }
-    // }
+        float pitchValue = _playerCam.transform.rotation.eulerAngles.x + 
+        lookAroundInput.y * Time.deltaTime * _camPitchSensitivity;
+
+        if(pitchValue < _camPitchLimit || pitchValue > 360 - _camPitchLimit)
+        {
+            _playerCam.transform.localRotation = Quaternion.Euler(pitchValue, 0, 0);
+        }
+    }
+
+    private void OnValidate()
+    {
+        if(_gun.TryGetComponent<IGun>(out IGun ammo))
+        {
+            // ignore
+        }
+        else
+        {
+            _gun = null;
+        }
+    }
 }
