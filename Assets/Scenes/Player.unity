@@ -421,9 +421,9 @@ MonoBehaviour:
   _lookAround: {fileID: 4910631886634671282, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _jump: {fileID: 3688452780633861201, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _playerCam: {fileID: 712637071}
-  _speed: 30
+  _speed: 20
   _rotateSensitivity: 110
   _camPitchSensitivity: 110
   _camPitchLimit: 60
-  _gravityScale: 9.8
-  _jumpHeight: 60
+  _gravityScale: 1
+  _jumpHeight: 100
