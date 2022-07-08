@@ -85,7 +85,7 @@ public class PlayerEntity : MonoBehaviour
     {
         if (_shoot.action.triggered)
         {
-            _gun.GetComponent<IGun>().Shoot();
+            _gun.GetComponent<Gun>().Shoot();
         }
     }
 
@@ -104,7 +104,7 @@ public class PlayerEntity : MonoBehaviour
 
     private void OnValidate()
     {
-        if(_gun.TryGetComponent<IGun>(out IGun ammo))
+        if(_gun.TryGetComponent<Gun>(out Gun ammo))
         {
             // ignore
         }
