@@ -153,7 +153,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 2
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -164,7 +164,23 @@ MonoBehaviour:
   m_ControlsChangedEvent:
     m_PersistentCalls:
       m_Calls: []
-  m_ActionEvents: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: ccaa898a-ad1d-49f8-9087-f8361b491656
+    m_ActionName: FpsInput/Movement[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 18a68192-627e-41a8-8057-a97f56a983e0
+    m_ActionName: FpsInput/PlayerRotate[/Mouse/delta]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 419bca91-1d15-4287-9fab-1ce7bdb75800
+    m_ActionName: FpsInput/Jump[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: c0227a44-4707-4182-a67a-af97d618ce53
+    m_ActionName: FpsInput/Shoot[/Mouse/leftButton]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: FpsInput
@@ -393,6 +409,7 @@ GameObject:
   - component: {fileID: 712637072}
   - component: {fileID: 712637071}
   - component: {fileID: 712637070}
+  - component: {fileID: 712637073}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -462,11 +479,36 @@ Transform:
   m_LocalPosition: {x: 0, y: 1.596, z: 0.222}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children:
-  - {fileID: 1949645357}
-  m_Father: {fileID: 1265408427}
-  m_RootOrder: 1
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1773428102 &712637073
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712637069}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 1.596, z: 0.222}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets:
+  - {x: 0, y: 1.596, z: 0.222}
+  m_RotationOffsets:
+  - {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 0
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 1265408427}
+    weight: 1
 --- !u!1 &1265408426
 GameObject:
   m_ObjectHideFlags: 0
@@ -498,7 +540,6 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 503895463}
-  - {fileID: 712637072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -554,6 +595,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1949645357}
   - component: {fileID: 1949645358}
+  - component: {fileID: 1949645359}
   m_Layer: 0
   m_Name: Glock
   m_TagString: Untagged
@@ -569,14 +611,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1949645356}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: -1.596, z: -0.222}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 141215463}
   - {fileID: 91752561}
-  m_Father: {fileID: 712637072}
-  m_RootOrder: 0
+  m_Father: {fileID: 0}
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1949645358
 MonoBehaviour:
@@ -592,3 +634,29 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <MyProperties>k__BackingField: {fileID: 11400000, guid: 892decf7cc734433c95ea480334a067c, type: 2}
   _bulletSpawnPoint: {fileID: 141215463}
+--- !u!1773428102 &1949645359
+ParentConstraint:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1949645356}
+  m_Enabled: 1
+  m_Weight: 1
+  m_TranslationAtRest: {x: 0, y: 0, z: 0}
+  m_RotationAtRest: {x: 0, y: 0, z: 0}
+  m_TranslationOffsets:
+  - {x: 0, y: -1.596, z: -0.222}
+  m_RotationOffsets:
+  - {x: 0, y: 0, z: 0}
+  m_AffectTranslationX: 1
+  m_AffectTranslationY: 1
+  m_AffectTranslationZ: 1
+  m_AffectRotationX: 1
+  m_AffectRotationY: 1
+  m_AffectRotationZ: 1
+  m_IsContraintActive: 1
+  m_IsLocked: 1
+  m_Sources:
+  - sourceTransform: {fileID: 712637072}
+    weight: 1
