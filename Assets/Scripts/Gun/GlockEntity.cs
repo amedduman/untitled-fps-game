@@ -24,7 +24,7 @@ public class GlockEntity : Gun
         _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
     }
 
-    public override void Shoot()
+    public override void Shoot(Vector3 vel)
     {
         Transform spawnPoint = null;
         if(_isRight)
@@ -43,8 +43,12 @@ public class GlockEntity : Gun
         Ammo bullet = Instantiate(_ammoPrefab, 
         spawnPoint.position, 
         Quaternion.identity) as Ammo;
-        Vector3 bulletDestination = Vector3.zero;
 
+        //Debug.Break();
+
+        bullet.transform.position += vel;
+
+        Vector3 bulletDestination = Vector3.zero;
         Ease ease = Ease.Linear;
 
         RaycastHit hit;

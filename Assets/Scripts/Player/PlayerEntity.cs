@@ -39,6 +39,7 @@ public class PlayerEntity : MonoBehaviour
         CamPitch();
 
         _controller.Move(moveDir * Time.deltaTime);
+        
         Shoot();
     }
 
@@ -85,7 +86,7 @@ public class PlayerEntity : MonoBehaviour
     {
         if (_shoot.action.triggered)
         {
-            _gun.GetComponent<Gun>().Shoot();
+            _gun.GetComponent<Gun>().Shoot(_controller.velocity* Time.deltaTime);
         }
     }
 
