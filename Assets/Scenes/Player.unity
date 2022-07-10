@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657815, g: 0.49641192, b: 0.57481617, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -199,7 +199,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &91752560
 GameObject:
@@ -409,7 +409,7 @@ GameObject:
   - component: {fileID: 712637072}
   - component: {fileID: 712637071}
   - component: {fileID: 712637070}
-  - component: {fileID: 712637073}
+  - component: {fileID: 712637074}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -476,39 +476,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712637069}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 31.91, y: 86.992, z: 64.912}
+  m_LocalPosition: {x: 0, y: 1.5960007, z: 0.22200012}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 0}
+  m_Father: {fileID: 1265408427}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1773428102 &712637073
-ParentConstraint:
+--- !u!114 &712637074
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 712637069}
   m_Enabled: 1
-  m_Weight: 1
-  m_TranslationAtRest: {x: 0, y: 1.596, z: 0.222}
-  m_RotationAtRest: {x: 0, y: 0, z: 0}
-  m_TranslationOffsets:
-  - {x: 0, y: 1.596, z: 0.222}
-  m_RotationOffsets:
-  - {x: 0, y: 0, z: 0}
-  m_AffectTranslationX: 1
-  m_AffectTranslationY: 1
-  m_AffectTranslationZ: 1
-  m_AffectRotationX: 0
-  m_AffectRotationY: 1
-  m_AffectRotationZ: 1
-  m_IsContraintActive: 1
-  m_IsLocked: 1
-  m_Sources:
-  - sourceTransform: {fileID: 1265408427}
-    weight: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8e4b6a39a0e80425f95fdafc20e3113a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1226896847
 GameObject:
   m_ObjectHideFlags: 0
@@ -603,7 +589,7 @@ GameObject:
   - component: {fileID: 1265408427}
   - component: {fileID: 1265408429}
   - component: {fileID: 1265408428}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -623,6 +609,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 503895463}
+  - {fileID: 712637072}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -734,7 +721,7 @@ Transform:
   - {fileID: 1448680954}
   - {fileID: 1226896848}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1949645358
 MonoBehaviour:
@@ -748,7 +735,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e9a65cd98b4519b268af8b05b562f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _layers:
+    serializedVersion: 2
+    m_Bits: 55
   <Ammo>k__BackingField: 10
+  _range: 500
+  _bulletSpeed: 100
+  _bulletTweenEase: 33
   _ammoPrefab: {fileID: 1200522090904868429, guid: f91f804de8da34881a88b1d1dc2eddc2, type: 3}
   _bulletSpawnPointRight: {fileID: 141215463}
   _bulletSpawnPointLeft: {fileID: 1448680954}

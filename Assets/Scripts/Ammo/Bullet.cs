@@ -1,17 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 [RequireComponent(typeof(Rigidbody))] [RequireComponent(typeof(SphereCollider))]
 public class Bullet :  Ammo
 {
-    [SerializeField] float _bulletInitialForce = 100;
     Rigidbody _rb;
 
-    public override void FireUp(Quaternion spawnPointRot)
+    private void Awake()
     {
-        transform.rotation = spawnPointRot;
         _rb = GetComponent<Rigidbody>();
-        _rb.AddForce(transform.forward * _bulletInitialForce);
+    }
+
+    public override void FireUp(Vector3 destination, float bulletSpeed, Ease ease)
+    {
+        transform.DOMove(destination, bulletSpeed).SetSpeedBased().SetEase(ease).OnComplete(()=>
+        {
+            _rb.isKinematic = false;
+        });
     }
 }

@@ -81,7 +81,7 @@ public class PlayerEntity : MonoBehaviour
         0);
     }
 
-        private void Shoot()
+    private void Shoot()
     {
         if (_shoot.action.triggered)
         {
