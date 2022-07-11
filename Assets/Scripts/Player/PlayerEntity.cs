@@ -17,6 +17,11 @@ public class PlayerEntity : MonoBehaviour
     float _yDir;
     CharacterController _controller;
 
+    private void Awake()
+    {
+        DependencyProvider.Instance.Register(this);
+    }
+
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
