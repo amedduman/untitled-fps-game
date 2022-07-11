@@ -4,17 +4,19 @@ using DG.Tweening;
 
 public class GlockEntity : Gun
 {
-    [SerializeField] LayerMask _layers;
     [field: SerializeField] int Ammo {get; set;}
     [SerializeField] float _range = 100;
+    [SerializeField] int _damage = 10;
     [SerializeField] [Min(0.1f)] float _bulletSpeed = 1; 
     [SerializeField] Ease _bulletTweenEase = Ease.Linear;
     [SerializeField] Ammo _ammoPrefab;
-    [SerializeField] Transform _bulletSpawnPointRight;
-    [SerializeField] Transform _bulletSpawnPointLeft;
     [Foldout("feedbacks",true)]
     [SerializeField] UnityEvent _rightGunFired;
     [SerializeField] UnityEvent _leftGunFired;
+    [Foldout("non-designer",true)]
+    [SerializeField] LayerMask _layers;
+    [SerializeField] Transform _bulletSpawnPointRight;
+    [SerializeField] Transform _bulletSpawnPointLeft;
 
     Camera _playerCam;
     bool _isRight = true;
@@ -44,8 +46,6 @@ public class GlockEntity : Gun
         spawnPoint.position, 
         Quaternion.identity) as Ammo;
 
-        //Debug.Break();
-
         bullet.transform.position += vel;
 
         Vector3 bulletDestination = Vector3.zero;
@@ -67,6 +67,6 @@ public class GlockEntity : Gun
             bulletDestination = _playerCam.transform.position + _playerCam.transform.forward * _range;
             ease = Ease.Linear;
         }
-        bullet.FireUp(bulletDestination, _bulletSpeed, ease);
+        bullet.FireUp(bulletDestination, _bulletSpeed, ease, _damage);
     }
 }
