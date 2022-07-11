@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerEntity : MonoBehaviour
 {
-    [SerializeField] InputActionReference _movement, _lookAround, _jump, _shoot;
+    [SerializeField] InputActionReference _movement, _lookAround, _jump, _shoot, _reload;
     [SerializeField] Gun _gun;
     [SerializeField] Camera _playerCam; 
     [SerializeField] float _speed = .1f;
@@ -46,6 +46,8 @@ public class PlayerEntity : MonoBehaviour
         _controller.Move(moveDir * Time.deltaTime);
         
         Shoot();
+
+        Reload();
     }
 
     private void Jump()
@@ -92,6 +94,14 @@ public class PlayerEntity : MonoBehaviour
         if(_shoot.action.inProgress)
         {
             _gun.GetComponent<Gun>().Shoot(_controller.velocity* Time.deltaTime);
+        }
+    }
+
+    void Reload()
+    {
+        if(_reload.action.triggered)
+        {
+            _gun.ForceReload();
         }
     }
 

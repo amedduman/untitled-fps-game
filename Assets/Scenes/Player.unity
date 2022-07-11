@@ -682,6 +682,7 @@ MonoBehaviour:
   _lookAround: {fileID: 4910631886634671282, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _jump: {fileID: 3688452780633861201, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _shoot: {fileID: 6260158917728228760, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _reload: {fileID: -2319001686263105942, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _gun: {fileID: 1949645358}
   _playerCam: {fileID: 712637071}
   _speed: 20

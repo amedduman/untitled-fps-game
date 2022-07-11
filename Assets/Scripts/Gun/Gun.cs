@@ -18,4 +18,9 @@ public abstract class Gun : MonoBehaviour
     {
 
     }
+
+    public virtual void ForceReload()
+    {
+        
+    }
 }

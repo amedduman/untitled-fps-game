@@ -40,6 +40,14 @@ public class GlockEntity : Gun
         _inCoolDown = false;
     }
 
+    public override void ForceReload()
+    {
+        if(_ammo == 0) return;
+        _ammo = 0;
+        transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 90, 2);
+        _gunHandler.GunAutOfAmmo(this, _reloadTime);
+    }
+
     public override void Reload()
     {
         transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 0, .5f).OnComplete(() => {
