@@ -1,12 +1,14 @@
 using UnityEngine;
 using UnityEngine.Events;
 using DG.Tweening;
+using System.Collections;
 
 public class GlockEntity : Gun
 {
     [field: SerializeField] int Ammo {get; set;}
     [SerializeField] float _range = 100;
     [SerializeField] int _damage = 10;
+    [SerializeField] float _coolDownTime = .2f;
     [SerializeField] [Min(0.1f)] float _bulletSpeed = 1; 
     [SerializeField] Ease _bulletTweenEase = Ease.Linear;
     [SerializeField] Ammo _ammoPrefab;
@@ -20,14 +22,25 @@ public class GlockEntity : Gun
 
     Camera _playerCam;
     bool _isRight = true;
+    bool _inCoolDown = false;
 
     private void Start()
     {
         _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
     }
 
+    IEnumerator CoolDown()
+    {
+        _inCoolDown = true;
+        yield return new WaitForSecondsRealtime(_coolDownTime);
+        _inCoolDown = false;
+    }
+
     public override void Shoot(Vector3 vel)
     {
+        if(_inCoolDown) return;
+        StartCoroutine(CoolDown());
+
         Transform spawnPoint = null;
         if(_isRight)
         {

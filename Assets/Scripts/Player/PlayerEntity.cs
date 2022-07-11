@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 public class PlayerEntity : MonoBehaviour
 {
     [SerializeField] InputActionReference _movement, _lookAround, _jump, _shoot;
-    [SerializeField] GameObject _gun;
+    [SerializeField] Gun _gun;
     [SerializeField] Camera _playerCam; 
     [SerializeField] float _speed = .1f;
     [SerializeField] float _rotateSensitivity = .1f;
@@ -89,7 +89,7 @@ public class PlayerEntity : MonoBehaviour
 
     private void Shoot()
     {
-        if (_shoot.action.triggered)
+        if(_shoot.action.inProgress)
         {
             _gun.GetComponent<Gun>().Shoot(_controller.velocity* Time.deltaTime);
         }
@@ -105,18 +105,6 @@ public class PlayerEntity : MonoBehaviour
         if(pitchValue < _camPitchLimit || pitchValue > 360 - _camPitchLimit)
         {
             _playerCam.transform.localRotation = Quaternion.Euler(pitchValue, 0, 0);
-        }
-    }
-
-    private void OnValidate()
-    {
-        if(_gun.TryGetComponent<Gun>(out Gun ammo))
-        {
-            // ignore
-        }
-        else
-        {
-            _gun = null;
         }
     }
 }

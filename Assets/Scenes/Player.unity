@@ -647,7 +647,7 @@ MonoBehaviour:
   _lookAround: {fileID: 4910631886634671282, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _jump: {fileID: 3688452780633861201, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
   _shoot: {fileID: 6260158917728228760, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
-  _gun: {fileID: 1949645356}
+  _gun: {fileID: 1949645358}
   _playerCam: {fileID: 712637071}
   _speed: 20
   _rotateSensitivity: 110
@@ -735,22 +735,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e9a65cd98b4519b268af8b05b562f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _layers:
-    serializedVersion: 2
-    m_Bits: 55
   <Ammo>k__BackingField: 10
   _range: 500
+  _damage: 10
   _bulletSpeed: 100
   _bulletTweenEase: 33
   _ammoPrefab: {fileID: 1200522090904868429, guid: f91f804de8da34881a88b1d1dc2eddc2, type: 3}
-  _bulletSpawnPointRight: {fileID: 141215463}
-  _bulletSpawnPointLeft: {fileID: 1448680954}
   _rightGunFired:
     m_PersistentCalls:
       m_Calls: []
   _leftGunFired:
     m_PersistentCalls:
       m_Calls: []
+  _layers:
+    serializedVersion: 2
+    m_Bits: 55
+  _bulletSpawnPointRight: {fileID: 141215463}
+  _bulletSpawnPointLeft: {fileID: 1448680954}
 --- !u!1773428102 &1949645359
 ParentConstraint:
   m_ObjectHideFlags: 0
