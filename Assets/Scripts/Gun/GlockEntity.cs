@@ -5,9 +5,10 @@ using System.Collections;
 
 public class GlockEntity : Gun
 {
-    [field: SerializeField] int Ammo {get; set;}
+    [field: SerializeField] int _ammoMax {get; set;} = 10;
     [SerializeField] float _range = 100;
     [SerializeField] int _damage = 10;
+    [SerializeField] [Min(0)] float _reloadTime = 10; 
     [SerializeField] float _coolDownTime = .2f;
     [SerializeField] [Min(0.1f)] float _bulletSpeed = 1; 
     [SerializeField] Ease _bulletTweenEase = Ease.Linear;
@@ -23,10 +24,13 @@ public class GlockEntity : Gun
     Camera _playerCam;
     bool _isRight = true;
     bool _inCoolDown = false;
+    int _ammo;
 
     private void Start()
     {
         _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
+        _gunHandler = DependencyProvider.Instance.Get<GunHandler>();
+        _ammo = _ammoMax;
     }
 
     IEnumerator CoolDown()
@@ -36,10 +40,28 @@ public class GlockEntity : Gun
         _inCoolDown = false;
     }
 
+    public override void Reload()
+    {
+        transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 0, .5f).OnComplete(() => {
+            _ammo = _ammoMax;
+        });
+    }
+
     public override void Shoot(Vector3 vel)
     {
+        if(_ammo <= 0) return; 
+
         if(_inCoolDown) return;
         StartCoroutine(CoolDown());
+
+        _ammo -= 1;
+        _ammo = Mathf.Clamp(_ammo, 0, _ammoMax);
+        _gunHandler.GunHasShoot(_ammo);
+        if(_ammo == 0)
+        {
+            transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 90, 2);
+            _gunHandler.GunAutOfAmmo(this, _reloadTime);
+        }
 
         Transform spawnPoint = null;
         if(_isRight)
