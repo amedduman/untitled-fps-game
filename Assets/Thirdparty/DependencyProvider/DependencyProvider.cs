@@ -24,6 +24,12 @@ public class DependencyProvider : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        Instance = null;
+        _hasInitialized = false;
+    }
+
 #region Register
     public bool Register(object itemToRegister)
     {
