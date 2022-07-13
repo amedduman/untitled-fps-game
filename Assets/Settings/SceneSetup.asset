@@ -29,3 +29,7 @@ MonoBehaviour:
     m_IsLoaded: 1
     m_IsActive: 1
     m_IsSubScene: 0
+  - m_Path: Assets/Scenes/UI.unity
+    m_IsLoaded: 1
+    m_IsActive: 0
+    m_IsSubScene: 0

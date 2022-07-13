@@ -768,6 +768,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e9a65cd98b4519b268af8b05b562f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <Crosshair>k__BackingField: {fileID: 21300000, guid: 213a8b5c35ea4489bae7f5799e50fced, type: 3}
   <_ammoMax>k__BackingField: 10
   _range: 500
   _damage: 10

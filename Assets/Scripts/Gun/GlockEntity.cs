@@ -16,18 +16,18 @@ public class GlockEntity : Gun
     [Foldout("feedbacks",true)]
     [SerializeField] UnityEvent _rightGunFired;
     [SerializeField] UnityEvent _leftGunFired;
-    [Foldout("non-designer",true)]
-    [SerializeField] LayerMask _layers;
-    [SerializeField] Transform _bulletSpawnPointRight;
-    [SerializeField] Transform _bulletSpawnPointLeft;
+    [Foldout("non-designer",false)] [SerializeField] LayerMask _layers;
+    [Foldout("non-designer",false)] [SerializeField] Transform _bulletSpawnPointRight;
+    [Foldout("non-designer",false)] [SerializeField] Transform _bulletSpawnPointLeft;
 
     Camera _playerCam;
     bool _isRight = true;
     bool _inCoolDown = false;
     int _ammo;
 
-    private void Start()
+    protected override void Start()
     {
+        base.Start();
         _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
         _gunHandler = DependencyProvider.Instance.Get<GunHandler>();
         _ammo = _ammoMax;
