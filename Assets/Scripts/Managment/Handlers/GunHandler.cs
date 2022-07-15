@@ -4,6 +4,7 @@ namespace TheRig.Handler
     using System.Collections;
     using TheRig.Gun;
     using TheRig.Management;
+    using ThirdParty.DependencyProvider;
 
     public class GunHandler : MonoBehaviour
     {
@@ -13,12 +14,6 @@ namespace TheRig.Handler
             {
                 return DependencyProvider.Instance.Get<GameManager>();
             }
-        }
-
-
-        void Awake()
-        {
-            DependencyProvider.Instance.Register(this);
         }
 
         public void GunChanged(Gun newGun)

@@ -5,8 +5,8 @@ namespace TheRig.Gun
     using DG.Tweening;
     using System.Collections;
     using TheRig.Ammo;
-    using TheRig.Handler;
     using TheRig.Other;
+    using ThirdParty.DependencyProvider;
 
     public class GlockEntity : Gun
     {
@@ -34,7 +34,6 @@ namespace TheRig.Gun
         {
             base.Start();
             _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
-            _gunHandler = DependencyProvider.Instance.Get<GunHandler>();
             _ammo = _ammoMax;
         }
 

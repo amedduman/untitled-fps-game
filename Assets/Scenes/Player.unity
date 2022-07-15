@@ -445,6 +445,7 @@ GameObject:
   - component: {fileID: 712637071}
   - component: {fileID: 712637070}
   - component: {fileID: 712637074}
+  - component: {fileID: 712637075}
   m_Layer: 0
   m_Name: MainCamera
   m_TagString: MainCamera
@@ -530,6 +531,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8e4b6a39a0e80425f95fdafc20e3113a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &712637075
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 712637069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31be8ad6d2d141b4a97bd65a7c2a484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentToBind: {fileID: 712637074}
 --- !u!1 &1226896847
 GameObject:
   m_ObjectHideFlags: 0
@@ -624,6 +638,7 @@ GameObject:
   - component: {fileID: 1265408427}
   - component: {fileID: 1265408429}
   - component: {fileID: 1265408428}
+  - component: {fileID: 1265408430}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -691,6 +706,19 @@ MonoBehaviour:
   _camPitchLimit: 60
   _gravityScale: 40
   _jumpHeight: 20
+--- !u!114 &1265408430
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1265408426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d31be8ad6d2d141b4a97bd65a7c2a484, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _componentToBind: {fileID: 1265408429}
 --- !u!1 &1448680953
 GameObject:
   m_ObjectHideFlags: 0

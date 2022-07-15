@@ -10,11 +10,6 @@ namespace TheRig.Management
         public event Action<Gun> OnGunChanged;
         #endregion
 
-        private void Awake()
-        {
-            DependencyProvider.Instance.Register(this);
-        }
-
         public void GunChanged(Gun gun)
         {
             OnGunChanged?.Invoke(gun);

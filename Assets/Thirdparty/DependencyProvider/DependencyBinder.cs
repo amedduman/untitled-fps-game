@@ -1,12 +1,15 @@
-using UnityEngine;
-
-[DefaultExecutionOrder(-99999)]
-public class DependencyBinder : MonoBehaviour
+namespace ThirdParty.DependencyProvider
 {
-    [SerializeField] Component _componentToBind;
+    using UnityEngine;
 
-    private void Awake()
+    [DefaultExecutionOrder(-99999)]
+    public class DependencyBinder : MonoBehaviour
     {
-        DependencyProvider.Instance.Register(_componentToBind);
+        [SerializeField] Component _componentToBind;
+
+        private void Awake()
+        {
+            DependencyProvider.Instance.Register(_componentToBind);
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace TheRig.Other
     using MoreMountains.Feedbacks;
     using TheRig.CommonInterfaces;
     using TheRig.Player;
+    using ThirdParty.DependencyProvider;
 
     public class DummyEntity : MonoBehaviour, IDamageable
     {

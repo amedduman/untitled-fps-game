@@ -4,6 +4,7 @@ namespace TheRig.UI
     using UnityEngine.UI;
     using TheRig.Management;
     using TheRig.Gun;
+    using ThirdParty.DependencyProvider;
 
     public class HudUI : MonoBehaviour
     {

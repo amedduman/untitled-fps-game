@@ -4,9 +4,6 @@ namespace TheRig.Other
 
     public class PlayerCameraEntity : MonoBehaviour
     {
-        private void Awake()
-        {
-            DependencyProvider.Instance.Register(this);
-        }
+        
     }
 }
