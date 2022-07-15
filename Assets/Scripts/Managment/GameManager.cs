@@ -1,19 +1,23 @@
-using UnityEngine;
-using System;
-
-public class GameManager : MonoBehaviour
+namespace TheRig.Management
 {
-    #region Events
-    public event Action<Gun> OnGunChanged;
-    #endregion
+    using UnityEngine;
+    using System;
+    using TheRig.Gun;
 
-    private void Awake()
+    public class GameManager : MonoBehaviour
     {
-        DependencyProvider.Instance.Register(this);
-    }
+        #region Events
+        public event Action<Gun> OnGunChanged;
+        #endregion
 
-    public void GunChanged(Gun gun)
-    {
-        OnGunChanged?.Invoke(gun);
+        private void Awake()
+        {
+            DependencyProvider.Instance.Register(this);
+        }
+
+        public void GunChanged(Gun gun)
+        {
+            OnGunChanged?.Invoke(gun);
+        }
     }
 }

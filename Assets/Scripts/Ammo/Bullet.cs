@@ -1,35 +1,38 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using DG.Tweening;
-
-[RequireComponent(typeof(Rigidbody))] [RequireComponent(typeof(SphereCollider))]
-public class Bullet :  Ammo
+namespace TheRig.Ammo
 {
-    Rigidbody _rb;
-    [SerializeField] int _damage;
+    using UnityEngine;
+    using DG.Tweening;
+    using TheRig.CommonInterfaces;
 
-    private void Awake()
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(SphereCollider))]
+    public class Bullet : Ammo
     {
-        _rb = GetComponent<Rigidbody>();
-    }
+        Rigidbody _rb;
+        [SerializeField] int _damage;
 
-    public override void FireUp(Vector3 destination, float bulletSpeed, Ease ease, int damage)
-    {
-        _damage = damage;
-        transform.DOMove(destination, bulletSpeed).SetSpeedBased().SetEase(ease).OnComplete(()=>
+        private void Awake()
         {
+            _rb = GetComponent<Rigidbody>();
+        }
+
+        public override void FireUp(Vector3 destination, float bulletSpeed, Ease ease, int damage)
+        {
+            _damage = damage;
+            transform.DOMove(destination, bulletSpeed).SetSpeedBased().SetEase(ease).OnComplete(() =>
+            {
+                _rb.isKinematic = false;
+            });
+        }
+
+        private void OnCollisionEnter(Collision other)
+        {
+            gameObject.GetComponent<Collider>().enabled = false;
             _rb.isKinematic = false;
-        });
-    }
-
-    private void OnCollisionEnter(Collision other)
-    {
-        gameObject.GetComponent<Collider>().enabled = false;
-        _rb.isKinematic = false;
-        if(other.gameObject.TryGetComponent(out IDamageable damageable))
-        {
-            damageable.GetDamage(_damage);
+            if (other.gameObject.TryGetComponent(out IDamageable damageable))
+            {
+                damageable.GetDamage(_damage);
+            }
         }
     }
 }

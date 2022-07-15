@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -24,7 +23,7 @@ public class DependencyProvider : MonoBehaviour
         }
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         Instance = null;
         _hasInitialized = false;
@@ -47,23 +46,21 @@ public class DependencyProvider : MonoBehaviour
     {
         if(itemToDeregister == null)
         {
-            Debug.LogError("de-registration has failed.");
+            Debug.LogError($"de-registration has failed. item for de-reregistration is null");
             Debug.Break();
             return false;
         }
         if(RegisteredItems.Contains(itemToDeregister))
         {
             RegisteredItems.Remove(itemToDeregister);
+            return true;
         }
         else
         {
-            Debug.LogError("item for de-registration is has not been registered.");
+            Debug.LogError($"{itemToDeregister} has not been registered but you are trying to de-register it."); 
             Debug.Break();
             return false;
         }
-        Debug.LogError($"something unexpected happened while trying to do de-registration.");
-        Debug.Break();
-        return false;
     }
 #endregion 
 
@@ -73,10 +70,32 @@ public class DependencyProvider : MonoBehaviour
         {
             if(item is T)
             {
+                if(ext.IsNullOrDestroyed(item))
+                {
+                    Deregister(item);
+                    break;
+                }
                 return (T)item;
             }
         }
-        Debug.Log($"null returned");
+        Debug.Log($"null returned instead of {typeof(T)}");
+        Debug.Break();
         return null;
     }
+
+    
+}
+
+public static class ext
+{
+        public static bool IsNullOrDestroyed(this System.Object obj) 
+        {
+     
+            if (object.ReferenceEquals(obj, null)) return true;
+     
+            if (obj is UnityEngine.Object) return (obj as UnityEngine.Object) == null;
+     
+            return false;
+        }
+
 }

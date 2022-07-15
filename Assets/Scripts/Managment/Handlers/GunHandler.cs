@@ -1,41 +1,46 @@
-using UnityEngine;
-using System.Collections;
-
-public class GunHandler : MonoBehaviour
+namespace TheRig.Handler
 {
-    GameManager GameManagerInstance
+    using UnityEngine;
+    using System.Collections;
+    using TheRig.Gun;
+    using TheRig.Management;
+
+    public class GunHandler : MonoBehaviour
     {
-        get
+        GameManager GameManagerInstance
         {
-            return DependencyProvider.Instance.Get<GameManager>();
+            get
+            {
+                return DependencyProvider.Instance.Get<GameManager>();
+            }
         }
-    }
-    
 
-    void Awake()
-    {
-        DependencyProvider.Instance.Register(this);
-    }
 
-    public void GunChanged(Gun newGun)
-    {
-        GameManagerInstance.GunChanged(newGun);
-    }
-
-    // what is this method for??
-    public void GunHasShoot(int remainingAmmo)
-    {
-
-    }
-
-    public void GunAutOfAmmo(Gun gun, float reloadTime)
-    {
-        StartCoroutine(CoGunAutOfAmmo());
-
-        IEnumerator CoGunAutOfAmmo()
+        void Awake()
         {
-            yield return new WaitForSecondsRealtime(reloadTime);
-            gun.Reload();
+            DependencyProvider.Instance.Register(this);
+        }
+
+        public void GunChanged(Gun newGun)
+        {
+            GameManagerInstance.GunChanged(newGun);
+        }
+
+        // what is this method for??
+        public void GunHasShoot(int remainingAmmo)
+        {
+
+        }
+
+        public void GunAutOfAmmo(Gun gun, float reloadTime)
+        {
+            StartCoroutine(CoGunAutOfAmmo());
+
+            IEnumerator CoGunAutOfAmmo()
+            {
+                yield return new WaitForSecondsRealtime(reloadTime);
+                gun.Reload();
+            }
         }
     }
 }

@@ -1,29 +1,32 @@
-using UnityEngine;
-using UnityEngine.UI;
-
-public abstract class Gun : MonoBehaviour
+namespace TheRig.Gun
 {
-    [field: SerializeField] public Sprite Crosshair {get; private set;}
-    protected GunHandler _gunHandler;
+    using UnityEngine;
+    using TheRig.Handler;
 
-    protected virtual void Start()
+    public abstract class Gun : MonoBehaviour
     {
-        _gunHandler = DependencyProvider.Instance.Get<GunHandler>();
-        _gunHandler.GunChanged(this);
-    }
+        [field: SerializeField] public Sprite Crosshair { get; private set; }
+        protected GunHandler _gunHandler;
 
-    public virtual void Reload()
-    {
+        protected virtual void Start()
+        {
+            _gunHandler = DependencyProvider.Instance.Get<GunHandler>();
+            _gunHandler.GunChanged(this);
+        }
 
-    }
+        public virtual void Reload()
+        {
 
-    public virtual void Shoot(Vector3 vel)
-    {
+        }
 
-    }
+        public virtual void Shoot(Vector3 vel)
+        {
 
-    public virtual void ForceReload()
-    {
-        
+        }
+
+        public virtual void ForceReload()
+        {
+
+        }
     }
 }

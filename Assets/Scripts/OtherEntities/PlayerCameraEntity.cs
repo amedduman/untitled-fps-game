@@ -1,11 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-public class PlayerCameraEntity : MonoBehaviour
+namespace TheRig.Other
 {
-    private void Awake()
+    using UnityEngine;
+
+    public class PlayerCameraEntity : MonoBehaviour
     {
-        DependencyProvider.Instance.Register(this);
+        private void Awake()
+        {
+            DependencyProvider.Instance.Register(this);
+        }
     }
 }

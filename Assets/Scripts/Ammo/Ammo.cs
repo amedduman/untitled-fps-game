@@ -1,10 +1,13 @@
-using UnityEngine;
-using DG.Tweening;
-
-public abstract class Ammo : MonoBehaviour
+namespace TheRig.Ammo
 {
-    public virtual void FireUp(Vector3 destination, float bulletSpeed, Ease ease, int damage)
-    {
+    using UnityEngine;
+    using DG.Tweening;
 
+    public abstract class Ammo : MonoBehaviour
+    {
+        public virtual void FireUp(Vector3 destination, float bulletSpeed, Ease ease, int damage)
+        {
+
+        }
     }
 }

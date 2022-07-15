@@ -1,8 +1,9 @@
-using UnityEngine;
-using System;
-using System.Collections.Generic;
-
-public class UserInterfaceHandler : MonoBehaviour
+namespace TheRig.Handler
 {
-    
+    using UnityEngine;
+
+    public class UserInterfaceHandler : MonoBehaviour
+    {
+
+    }
 }
