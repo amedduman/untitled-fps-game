@@ -2,26 +2,30 @@ namespace TheRig.UI
 {
     using UnityEngine;
     using UnityEngine.UI;
-    using TheRig.Management;
     using TheRig.Gun;
     using ThirdParty.DependencyProvider;
+    using TheRig.GameEvents;
 
     public class HudUI : MonoBehaviour
     {
         [SerializeField] Image _crosshairImage;
 
-        GameManager _gameManager;
-
-        private void OnEnable()
+        GameEvents _gameEvents
         {
-            _gameManager = DependencyProvider.Instance.Get<GameManager>();
+            get
+            {
+                return DependencyProvider.Instance.Get<GameEvents>();   
+            }
+        }
 
-            _gameManager.OnGunChanged += HandleGunChanged;
+        private void OnEnable() 
+        {
+            _gameEvents.OnGunChanged += HandleGunChanged;
         }
 
         private void OnDisable()
         {
-            _gameManager.OnGunChanged -= HandleGunChanged;
+            _gameEvents.OnGunChanged -= HandleGunChanged;
         }
 
         public void HandleGunChanged(Gun newGun)

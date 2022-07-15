@@ -3,22 +3,22 @@ namespace TheRig.Handler
     using UnityEngine;
     using System.Collections;
     using TheRig.Gun;
-    using TheRig.Management;
+    using TheRig.GameEvents;
     using ThirdParty.DependencyProvider;
 
     public class GunHandler : MonoBehaviour
     {
-        GameManager GameManagerInstance
+        GameEvents _gameEvents
         {
             get
             {
-                return DependencyProvider.Instance.Get<GameManager>();
+                return DependencyProvider.Instance.Get<GameEvents>();
             }
         }
 
         public void GunChanged(Gun newGun)
         {
-            GameManagerInstance.GunChanged(newGun);
+            _gameEvents.FireGunChanged(newGun);
         }
 
         // what is this method for??
