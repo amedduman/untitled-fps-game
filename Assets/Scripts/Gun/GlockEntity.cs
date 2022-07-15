@@ -10,10 +10,8 @@ namespace TheRig.Gun
 
     public class GlockEntity : Gun
     {
-        [field: SerializeField] int _ammoMax { get; set; } = 10;
         [SerializeField] float _range = 100;
         [SerializeField] int _damage = 10;
-        [SerializeField][Min(0)] float _reloadTime = 10;
         [SerializeField] float _coolDownTime = .2f;
         [SerializeField][Min(0.1f)] float _bulletSpeed = 1;
         [SerializeField] Ease _bulletTweenEase = Ease.Linear;
@@ -28,13 +26,12 @@ namespace TheRig.Gun
         Camera _playerCam;
         bool _isRight = true;
         bool _inCoolDown = false;
-        int _ammo;
 
         protected override void Start()
         {
             base.Start();
             _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
-            _ammo = _ammoMax;
+            _ammo = AmmoMax;
         }
 
         IEnumerator CoolDown()
@@ -44,36 +41,19 @@ namespace TheRig.Gun
             _inCoolDown = false;
         }
 
-        public override void ForceReload()
-        {
-            if (_ammo == 0) return;
-            _ammo = 0;
-            transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 90, 2);
-            _gunHandler.GunAutOfAmmo(this, _reloadTime);
-        }
-
-        public override void Reload()
-        {
-            transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 0, .5f).OnComplete(() =>
-            {
-                _ammo = _ammoMax;
-            });
-        }
-
         public override void Shoot(Vector3 vel)
         {
-            if (_ammo <= 0) return;
+            if (_isReloading) return;
 
             if (_inCoolDown) return;
             StartCoroutine(CoolDown());
 
             _ammo -= 1;
-            _ammo = Mathf.Clamp(_ammo, 0, _ammoMax);
-            _gunHandler.GunHasShoot(_ammo);
+            _ammo = Mathf.Clamp(_ammo, 0, AmmoMax);
+            GunHasFired(_ammo);
             if (_ammo == 0)
             {
-                transform.GetChild(0).transform.DOLocalRotate(Vector3.right * 90, 2);
-                _gunHandler.GunAutOfAmmo(this, _reloadTime);
+                Reload(this);
             }
 
             Transform spawnPoint = null;
