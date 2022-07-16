@@ -62,7 +62,7 @@ namespace TheRig.Gun
         {
             if(AmmoMax == 0)
             {
-                Debug.LogError("max ammo cannot be zero", gameObject);
+                Debug.LogError("max ammo cannot be zero, click this error to see which game object's max ammo is zero", gameObject);
                 Debug.Break();
                 return;
             }

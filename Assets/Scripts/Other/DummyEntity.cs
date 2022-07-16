@@ -7,10 +7,19 @@ namespace TheRig.Other
     using MoreMountains.Feedbacks;
     using TheRig.CommonInterfaces;
     using TheRig.Player;
+    using TheRig.GameEvents;
     using ThirdParty.DependencyProvider;
 
     public class DummyEntity : MonoBehaviour, IDamageable
     {
+        GameEvents _gameEvents
+        {
+            get
+            {
+                return DependencyProvider.Instance.Get<GameEvents>();
+            }
+        }
+
         [SerializeField][Min(0)] float _maxHealth = 100;
         [SerializeField] Transform _model;
         [Foldout("Feedbacks", true)]
@@ -19,6 +28,7 @@ namespace TheRig.Other
         float _health;
         PlayerEntity _player;
         NavMeshAgent _agent;
+
         void Start()
         {
             _player = DependencyProvider.Instance.Get<PlayerEntity>();
@@ -41,6 +51,7 @@ namespace TheRig.Other
         {
             if (_health <= 0) return;
             _onDamage.PlayFeedbacks();
+            _gameEvents.InvokeEnemyGetDamaged();
             _health -= damage;
             _health = Mathf.Clamp(_health, 0, _maxHealth);
             if (_health <= 0)
