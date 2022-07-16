@@ -181,6 +181,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: c0227a44-4707-4182-a67a-af97d618ce53
     m_ActionName: FpsInput/Shoot[/Mouse/leftButton]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 14094f35-e9b0-4bf4-a482-1c52fada47fb
+    m_ActionName: FpsInput/Reload[/Keyboard/r]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: FpsInput
@@ -1076,15 +1080,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c32e9a65cd98b4519b268af8b05b562f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <Crosshair>k__BackingField: {fileID: 21300000, guid: 213a8b5c35ea4489bae7f5799e50fced, type: 3}
-  <AmmoMax>k__BackingField: 10
-  _reloadTime: 10
+  <Crosshair>k__BackingField: {fileID: 21300000, guid: e011e9fca11b3624a91aef9753544ed5, type: 3}
+  <AmmoMax>k__BackingField: 30
+  _reloadTime: 2
   _gunStartReloading: {fileID: 1916616813}
   _gunFinishReloading: {fileID: 1751916115}
   _range: 500
-  _damage: 10
-  _coolDownTime: 0.2
-  _bulletSpeed: 100
+  _damage: 5
+  _coolDownTime: 0.05
+  _bulletSpeed: 500
   _bulletTweenEase: 33
   _ammoPrefab: {fileID: 1200522090904868429, guid: f91f804de8da34881a88b1d1dc2eddc2, type: 3}
   _rightGunFired:
