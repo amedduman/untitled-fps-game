@@ -12,6 +12,7 @@ namespace TheRig.Gun
         [field: SerializeField] public Sprite Crosshair { get; private set; }
         [field: SerializeField] public int MaxAmmo { get; private set; } = 30;
         [SerializeField][Min(0)] float _reloadTime = 10;
+        [Foldout("feedbacks", true)]
         [SerializeField] MMF_Player _gunStartReloading;
         [SerializeField] MMF_Player _gunFinishReloading;
 

@@ -5,7 +5,7 @@ namespace TheRig.Ammo
 
     public abstract class Ammo : MonoBehaviour
     {
-        public virtual void FireUp(Vector3 destination, float bulletSpeed, Ease ease, int damage)
+        public virtual void FireUp(Vector3 destination, float bulletSpeed, int damage)
         {
 
         }

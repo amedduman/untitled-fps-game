@@ -1,9 +1,8 @@
 namespace TheRig.Gun
 {
     using UnityEngine;
-    using UnityEngine.Events;
-    using DG.Tweening;
     using System.Collections;
+    using MoreMountains.Feedbacks;
     using TheRig.Ammo;
     using TheRig.Other;
     using ThirdParty.DependencyProvider;
@@ -14,11 +13,11 @@ namespace TheRig.Gun
         [SerializeField] int _damage = 10;
         [SerializeField] float _coolDownTime = .2f;
         [SerializeField][Min(0.1f)] float _bulletSpeed = 1;
-        [SerializeField] Ease _bulletTweenEase = Ease.Linear;
         [SerializeField] Ammo _ammoPrefab;
         [Foldout("feedbacks", true)]
-        [SerializeField] UnityEvent _rightGunFired;
-        [SerializeField] UnityEvent _leftGunFired;
+        [SerializeField] MMF_Player _rightGunFired;
+        [SerializeField] MMF_Player _leftGunFired;
+        [Space(20)]
         [Foldout("non-designer", false)][SerializeField] LayerMask _layers;
         [Foldout("non-designer", false)][SerializeField] Transform _bulletSpawnPointRight;
         [Foldout("non-designer", false)][SerializeField] Transform _bulletSpawnPointLeft;
@@ -62,13 +61,13 @@ namespace TheRig.Gun
             if (_isRight)
             {
                 spawnPoint = _bulletSpawnPointRight;
-                _rightGunFired.Invoke();
+                _rightGunFired.PlayFeedbacks();
                 _isRight = false;
             }
             else
             {
                 spawnPoint = _bulletSpawnPointLeft;
-                _leftGunFired.Invoke();
+                _leftGunFired.PlayFeedbacks();
                 _isRight = true;
             }
 
@@ -79,7 +78,6 @@ namespace TheRig.Gun
             bullet.transform.position += vel;
 
             Vector3 bulletDestination = Vector3.zero;
-            Ease ease = Ease.Linear;
 
             RaycastHit hit;
             if (Physics.Raycast(_playerCam.transform.position,
@@ -89,15 +87,13 @@ namespace TheRig.Gun
             {
                 Debug.DrawRay(_playerCam.transform.position, _playerCam.transform.forward * hit.distance, Color.green, 1);
                 bulletDestination = hit.point;
-                ease = _bulletTweenEase;
             }
             else
             {
                 Debug.DrawRay(_playerCam.transform.position, _playerCam.transform.forward * _range, Color.red, 1);
                 bulletDestination = _playerCam.transform.position + _playerCam.transform.forward * _range;
-                ease = Ease.Linear;
             }
-            bullet.FireUp(bulletDestination, _bulletSpeed, ease, _damage);
+            bullet.FireUp(bulletDestination, _bulletSpeed, _damage);
         }
     }
 }
