@@ -19,18 +19,18 @@ namespace TheRig.Ammo
         public override void FireUp(Vector3 destination, float bulletSpeed, int damage)
         {
             _damage = damage;
-            Vector3 dir = destination - transform.position;
-            _rb.AddForce(dir * bulletSpeed, ForceMode.Acceleration);
+            Vector3 dir = (destination - transform.position).normalized;
+            _rb.AddForce(dir * bulletSpeed, ForceMode.VelocityChange);
         }
 
         private void OnCollisionEnter(Collision other)
         {
             gameObject.GetComponent<Collider>().enabled = false;
-            _rb.isKinematic = false;
             if (other.gameObject.TryGetComponent(out IDamageable damageable))
             {
                 damageable.GetDamage(_damage);
             }
+            Destroy(gameObject);
         }
     }
 }
