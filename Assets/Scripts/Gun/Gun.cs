@@ -10,14 +10,13 @@ namespace TheRig.Gun
     public abstract class Gun : MonoBehaviour
     {
         [field: SerializeField] public Sprite Crosshair { get; private set; }
-        [field: SerializeField] public int AmmoMax { get; private set; } = 10;
+        [field: SerializeField] public int MaxAmmo { get; private set; } = 30;
         [SerializeField][Min(0)] float _reloadTime = 10;
         [SerializeField] MMF_Player _gunStartReloading;
         [SerializeField] MMF_Player _gunFinishReloading;
 
 
         protected int _ammo;
-        protected bool _isReloading = false;
 
 
 
@@ -41,12 +40,6 @@ namespace TheRig.Gun
             _gunHandler.GunChanged(this);
         }
 
-        public virtual void ReloadComplete()
-        {
-            _isReloading = false;
-            _gunFinishReloading.PlayFeedbacks();
-        }
-
         public virtual void Shoot(Vector3 vel)
         {
 
@@ -54,35 +47,31 @@ namespace TheRig.Gun
 
         public virtual void ForceReload()
         {
-            if (_isReloading || _ammo == AmmoMax) return;
-            Reload(this);
+            if (_ammo == 0 || _ammo == MaxAmmo) return;
+            _ammo = 0;
+            Reload();
         }
 
-        protected void Reload(Gun gun)
+        protected void Reload()
         {
-            if(AmmoMax == 0)
-            {
-                Debug.LogError("max ammo cannot be zero, click this error to see which game object's max ammo is zero", gameObject);
-                Debug.Break();
-                return;
-            }
-
-            _isReloading = true;
-            _gunStartReloading.PlayFeedbacks();
 
             StartCoroutine(CoGunAutOfAmmo()); 
 
             IEnumerator CoGunAutOfAmmo()
             {
-                while(_ammo < AmmoMax)
-                {
-                    yield return new WaitForSecondsRealtime(_reloadTime / AmmoMax);
-                    _ammo += 1;
-                    _gameEvents.InvokeOnGunReloading(_ammo);
-                }
+                _gunStartReloading.PlayFeedbacks();
 
-                gun.ReloadComplete();
+                yield return new WaitForSecondsRealtime(_reloadTime);
+                
+                ReloadComplete();
             }
+        }
+
+        public virtual void ReloadComplete()
+        {
+            _ammo = MaxAmmo;
+            _gameEvents.InvokeGunReloadComplete(MaxAmmo);
+            _gunFinishReloading.PlayFeedbacks();
         }
 
         protected void GunHasFired(int remainingAmmo)

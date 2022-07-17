@@ -31,7 +31,7 @@ namespace TheRig.Gun
         {
             base.Start();
             _playerCam = DependencyProvider.Instance.Get<PlayerCameraEntity>().GetComponent<Camera>();
-            _ammo = AmmoMax;
+            _ammo = MaxAmmo;
         }
 
         IEnumerator CoolDown()
@@ -43,17 +43,19 @@ namespace TheRig.Gun
 
         public override void Shoot(Vector3 vel)
         {
-            if (_isReloading) return;
+            if(_ammo <= 0) return;
 
             if (_inCoolDown) return;
             StartCoroutine(CoolDown());
 
             _ammo -= 1;
-            _ammo = Mathf.Clamp(_ammo, 0, AmmoMax);
+            _ammo = Mathf.Clamp(_ammo, 0, MaxAmmo);
+
             GunHasFired(_ammo);
+
             if (_ammo == 0)
             {
-                Reload(this);
+                Reload();
             }
 
             Transform spawnPoint = null;

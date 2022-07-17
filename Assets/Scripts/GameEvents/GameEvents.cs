@@ -17,11 +17,11 @@ namespace TheRig.GameEvents
         {
             OnGunFire?.Invoke(remainingAmmo);
         }
-        
-        public event Action<int> OnGunReloading;
-        public void InvokeOnGunReloading(int newAmmo)
+
+        public event Action<int> OnGunReloadComplete;
+        public void InvokeGunReloadComplete(int maxAmmo)
         {
-            OnGunReloading?.Invoke(newAmmo);
+            OnGunReloadComplete?.Invoke(maxAmmo);
         }
 
         public event Action OnEnemyGetDamaged;
