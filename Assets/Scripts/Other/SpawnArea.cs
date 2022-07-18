@@ -9,6 +9,8 @@ namespace TheRig.Other
     public class SpawnArea : MonoBehaviour
     {
         [SerializeField] Renderer _rend;
+        [SerializeField] Collider _col;
+        Camera _cam;
 
         EnemySpawnHandler _spawnHandler
         {
@@ -20,7 +22,7 @@ namespace TheRig.Other
 
         private void Awake()
         {
-            if(_spawnHandler != null)
+            if (_spawnHandler != null)
             {
                 _spawnHandler.AddArea(this);
             }
@@ -30,24 +32,28 @@ namespace TheRig.Other
                 Debug.Break();
             }
 
-
+            _cam = Camera.main;
         }
 
         public bool IsVisible()
         {
-            bool visible = _rend.isVisible;
-            return visible;
+            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_cam);
+
+            if (GeometryUtility.TestPlanesAABB(planes, _col.bounds))
+            {
+                _rend.material.color = Color.green;
+                return true;
+            }
+            else
+            {
+                _rend.material.color = Color.red;
+                return false;
+            }
         }
 
         public void Spawn()
         {
-            _rend.material.color = Color.green;
-        }
-
-        void OnBecameInvisible()
-        {
-            Debug.Log($"invinsible");
-            _rend.material.color = Color.red;
+            
         }
     }
 }
