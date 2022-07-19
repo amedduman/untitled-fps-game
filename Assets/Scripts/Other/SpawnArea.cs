@@ -8,9 +8,7 @@ namespace TheRig.Other
 
     public class SpawnArea : MonoBehaviour
     {
-        [SerializeField] Renderer _rend;
-        [SerializeField] Collider _col;
-        Camera _cam;
+        [SerializeField] DummyEntity _dummyPrefab;
 
         EnemySpawnHandler _spawnHandler
         {
@@ -31,13 +29,11 @@ namespace TheRig.Other
                 Debug.LogError("spawn handler should not be null");
                 Debug.Break();
             }
-
-            _cam = Camera.main;
         }
 
         public void Spawn()
         {
-            
+            Instantiate(_dummyPrefab, transform.position, transform.rotation, transform);
         }
     }
 }

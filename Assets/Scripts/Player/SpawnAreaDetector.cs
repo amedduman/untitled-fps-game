@@ -13,8 +13,10 @@ namespace TheRig.Player
         List<SpawnArea> _visibleSpawnAreas = new List<SpawnArea>();
         [SerializeField] float _maxDistanceForRay = 2000;
 
-        void FixedUpdate()
+        public List<SpawnArea> GetVisibleSpawnAreas()
         {
+            _visibleSpawnAreas.Clear();
+
             for (int i = -_visualAngle; i < _visualAngle; i++)
             {
                 transform.localRotation = Quaternion.Euler(0, i, 0);
@@ -27,24 +29,27 @@ namespace TheRig.Player
                 {
                     if (IsInLayerMask(hit.transform.gameObject, _wantedLayer))
                     {
-                        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green);
+                        if(hit.transform.gameObject.TryGetComponent(out SpawnArea spawnArea))
+                        {
+                            _visibleSpawnAreas.Add(spawnArea);
+                        }
+                        #if UNITY_EDITOR
+                        Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green, 1);
+                        #endif
                     }
                     else
                     {
-                        Debug.DrawRay(transform.position, transform.forward * _maxDistanceForRay, Color.red);
+                        #if UNITY_EDITOR
+                        Debug.DrawRay(transform.position, transform.forward * _maxDistanceForRay, Color.red, 1);
+                        #endif
                     }
                 }
-                // {
-                //     Debug.DrawRay(transform.position, transform.forward * hit.distance, Color.green);
-                // }
-                // else
-                // {
-                //     Debug.DrawRay(transform.position, transform.forward * _maxDistanceForRay, Color.red);
-                // }
             }
+
+            return _visibleSpawnAreas;
         }
 
-        public bool IsInLayerMask(GameObject obj, LayerMask layerMask)
+        bool IsInLayerMask(GameObject obj, LayerMask layerMask)
         {
             return ((layerMask.value & (1 << obj.layer)) > 0);
         }
