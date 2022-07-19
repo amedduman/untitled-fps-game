@@ -35,22 +35,6 @@ namespace TheRig.Other
             _cam = Camera.main;
         }
 
-        public bool IsVisible()
-        {
-            Plane[] planes = GeometryUtility.CalculateFrustumPlanes(_cam);
-
-            if (GeometryUtility.TestPlanesAABB(planes, _col.bounds))
-            {
-                _rend.material.color = Color.green;
-                return true;
-            }
-            else
-            {
-                _rend.material.color = Color.red;
-                return false;
-            }
-        }
-
         public void Spawn()
         {
             

@@ -136,7 +136,7 @@ GameObject:
   - component: {fileID: 768201498}
   - component: {fileID: 768201497}
   - component: {fileID: 768201499}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SpawnArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}

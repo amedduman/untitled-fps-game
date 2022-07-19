@@ -33,12 +33,12 @@ namespace TheRig.Handler
             {
                 foreach (SpawnArea area in _areas)
                 {
-                    if (area.IsVisible())
-                    {
-                        continue;
-                    }
+                    // if (area.IsVisible())
+                    // {
+                    //     continue;
+                    // }
 
-                    area.Spawn();
+                    // area.Spawn();
                 }
                 yield return null;
             }
