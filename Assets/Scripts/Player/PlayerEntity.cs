@@ -3,11 +3,21 @@ namespace TheRig.Player
     using UnityEngine;
     using UnityEngine.InputSystem;
     using TheRig.Gun;
+    using TheRig.GameEvents;
+    using ThirdParty.DependencyProvider;
 
     [RequireComponent(typeof(CharacterController))]
     public class PlayerEntity : MonoBehaviour
     {
-        [SerializeField] InputActionReference _movement, _lookAround, _jump, _shoot, _reload;
+        GameEvents _gameEvents
+        {
+            get
+            {
+                return DependencyProvider.Instance.Get<GameEvents>();
+            }
+        }
+
+        [SerializeField] int _maxHealth = 100;
         [SerializeField] Gun _gun;
         [SerializeField] Camera _playerCam;
         [SerializeField] float _speed = .1f;
@@ -16,18 +26,24 @@ namespace TheRig.Player
         [SerializeField][Range(0, 120)] float _camPitchLimit = 60;
         [SerializeField][Min(1)] float _gravityScale = 9.8f;
         [SerializeField][Min(1)] float _jumpHeight = 10;
+        [Foldout("non-designer", false)] [SerializeField] InputActionReference _movement, _lookAround, _jump, _shoot, _reload;
         float _groundedGravity = .05f;
         float _yDir;
         CharacterController _controller;
+        int _currentHealth;
+        bool _isDead;
 
         private void Start()
         {
+            _currentHealth = _maxHealth;
             Cursor.lockState = CursorLockMode.Locked;
             _controller = GetComponent<CharacterController>();
+            _gameEvents.InvokePlayerHealthChanged(_currentHealth);
         }
 
         void Update()
         {
+            if(_isDead) return;    
 
             Vector3 moveDir = Movement();
 
@@ -46,6 +62,26 @@ namespace TheRig.Player
             Shoot();
 
             Reload();
+        }
+
+        public void GetDamage(int damage)
+        {
+            _currentHealth -= damage;
+            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+
+            _gameEvents.InvokePlayerHealthChanged(_currentHealth);
+
+
+            if(_currentHealth <= 0)
+            {
+                HandleDeath();
+            }
+        }
+
+        void HandleDeath()
+        {
+            _isDead = true;
+            _gameEvents.InvokePlayerDeath();
         }
 
         private void Jump()

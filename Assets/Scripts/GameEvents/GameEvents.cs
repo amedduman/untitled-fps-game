@@ -29,7 +29,17 @@ namespace TheRig.GameEvents
         {
             OnEnemyGetDamaged?.Invoke();
         }
+
+        public event Action<int> OnPlayerHealthChanged;
+        public void InvokePlayerHealthChanged(int currentHealth)
+        {
+            OnPlayerHealthChanged?.Invoke(currentHealth);
+        }
         
-        
+        public event Action OnPlayerDeath;
+        public void InvokePlayerDeath()
+        {
+            OnPlayerDeath?.Invoke();
+        }
     }
 }
