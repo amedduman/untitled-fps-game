@@ -3,7 +3,6 @@ namespace TheRig.Other
     using System.Collections;
     using UnityEngine;
     using UnityEngine.AI;
-    using DG.Tweening;
     using MoreMountains.Feedbacks;
     using TheRig.CommonInterfaces;
     using TheRig.Player;
@@ -19,12 +18,16 @@ namespace TheRig.Other
                 return DependencyProvider.Instance.Get<GameEvents>();
             }
         }
+        [field: SerializeField] public int XpToDrop
+        {
+            get;
+            private set;
+        } = 5;
 
         [SerializeField][Min(0)] float _maxHealth = 100;
         [SerializeField] float _attackRange = 5;
         [SerializeField] float _attackInterval = 1;
         [SerializeField] int _damage = 4;
-        [SerializeField] Transform _model;
         [Foldout("Feedbacks", true)]
         [SerializeField] MMF_Player _onDamage;
         [SerializeField] MMF_Player _onDeath;
@@ -62,7 +65,7 @@ namespace TheRig.Other
                     _player.GetDamage(_damage);
                     _onAttack.PlayFeedbacks();
                 }
-                
+
                 yield return new WaitForSecondsRealtime(_attackInterval);
             }
 
@@ -77,11 +80,15 @@ namespace TheRig.Other
             _health = Mathf.Clamp(_health, 0, _maxHealth);
             if (_health <= 0)
             {
-                _onDeath.PlayFeedbacks();
-                _agent.enabled = false;
-                GetComponent<Collider>().enabled = false;
-                transform.DORotate(transform.rotation.eulerAngles + new Vector3(90, 0, 0), .5f).SetEase(Ease.InFlash);
+                HandleDeath();
             }
+        }
+
+        void HandleDeath()
+        {
+            _onDeath.PlayFeedbacks();
+            _agent.enabled = false;
+            GetComponent<Collider>().enabled = false;
         }
     }
 

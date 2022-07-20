@@ -37,6 +37,7 @@ namespace TheRig.Player
         float _yDir;
         CharacterController _controller;
         bool _isDead;
+        int _currentXp;
 
         private void Start()
         {
@@ -44,6 +45,7 @@ namespace TheRig.Player
             Cursor.lockState = CursorLockMode.Locked;
             _controller = GetComponent<CharacterController>();
             _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
+            _gameEvents.InvokePlayerXpChanged(_currentXp);
         }
 
         void Update()
@@ -81,6 +83,12 @@ namespace TheRig.Player
             {
                 HandleDeath();
             }
+        }
+
+        public void GetXp(int xp)
+        {
+            _currentXp += xp;
+            _gameEvents.InvokePlayerXpChanged(_currentXp);
         }
 
         void HandleDeath()

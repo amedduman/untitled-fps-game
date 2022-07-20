@@ -280,6 +280,10 @@ PrefabInstance:
       propertyPath: m_Sources.Array.data[0].sourceTransform
       value: 
       objectReference: {fileID: 712637072}
+    - target: {fileID: 3345521250665429499, guid: 770e8f5565d654ebd943aae127d966ef, type: 3}
+      propertyPath: _damage
+      value: 100
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 770e8f5565d654ebd943aae127d966ef, type: 3}
 --- !u!1001 &5199264495988412107
@@ -341,9 +345,5 @@ PrefabInstance:
       propertyPath: _gun
       value: 
       objectReference: {fileID: 1949645358}
-    - target: {fileID: 5199264497249556326, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}
-      propertyPath: _maxHealth
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}

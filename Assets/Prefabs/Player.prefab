@@ -309,11 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 77305b7b099c445bcbbc64b28853ab33, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _movement: {fileID: 3781930780454219455, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
-  _lookAround: {fileID: 4910631886634671282, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
-  _jump: {fileID: 3688452780633861201, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
-  _shoot: {fileID: 6260158917728228760, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
-  _reload: {fileID: -2319001686263105942, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _maxHealth: 100
   _gun: {fileID: 0}
   _playerCam: {fileID: 5199264495620944964}
   _speed: 20
@@ -322,6 +318,11 @@ MonoBehaviour:
   _camPitchLimit: 60
   _gravityScale: 40
   _jumpHeight: 20
+  _movement: {fileID: 3781930780454219455, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _lookAround: {fileID: 4910631886634671282, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _jump: {fileID: 3688452780633861201, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _shoot: {fileID: 6260158917728228760, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
+  _reload: {fileID: -2319001686263105942, guid: 3cf7b21adbb914477b6f26daadb8e2b3, type: 3}
 --- !u!143 &5199264497249556327
 CharacterController:
   m_ObjectHideFlags: 0

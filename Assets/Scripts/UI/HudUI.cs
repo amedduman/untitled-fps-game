@@ -14,6 +14,7 @@ namespace TheRig.UI
         [SerializeField] Image _crosshairImage;
         [SerializeField] TextMeshProUGUI _ammoText;
         [SerializeField] TextMeshProUGUI _healthText;
+        [SerializeField] TextMeshProUGUI _xpText;
         [SerializeField] float _hitFeedbackFadeOutDuration = 1;
 
         GameEvents _gameEvents
@@ -36,6 +37,7 @@ namespace TheRig.UI
             _gameEvents.OnEnemyGetDamaged += HandleEnemyGetDamaged;
             _gameEvents.OnGunReloadComplete += HandleGunReloadComplete;
             _gameEvents.OnPlayerHealthChanged += HandlePlayerGetDamage;
+            _gameEvents.OnPlayerXpChanged += HandleXpChanged;
         }
 
         private void OnDisable()
@@ -45,6 +47,7 @@ namespace TheRig.UI
             _gameEvents.OnEnemyGetDamaged -= HandleEnemyGetDamaged;
             _gameEvents.OnGunReloadComplete -= HandleGunReloadComplete;
             _gameEvents.OnPlayerHealthChanged -= HandlePlayerGetDamage;
+            _gameEvents.OnPlayerXpChanged -= HandleXpChanged;
         }
 
         void HandleGunChanged(Gun newGun)
@@ -72,6 +75,11 @@ namespace TheRig.UI
         void HandlePlayerGetDamage(int currentHealth)
         {
             _healthText.text = currentHealth.ToString();
+        }
+
+        void HandleXpChanged(int currentXp)
+        {
+            _xpText.text = currentXp.ToString();
         }
 
         void SetAmmoText(int remainingAmmo)

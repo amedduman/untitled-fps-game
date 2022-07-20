@@ -30,6 +30,12 @@ namespace TheRig.GameEvents
             OnEnemyGetDamaged?.Invoke();
         }
 
+        public event Action<int> OnPlayerXpChanged;
+        public void InvokePlayerXpChanged(int xp)
+        {
+            OnPlayerXpChanged?.Invoke(xp);
+        }
+
         public event Action<int> OnPlayerHealthChanged;
         public void InvokePlayerHealthChanged(int currentHealth)
         {
