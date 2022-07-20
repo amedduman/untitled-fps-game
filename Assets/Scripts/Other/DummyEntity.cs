@@ -21,10 +21,14 @@ namespace TheRig.Other
         }
 
         [SerializeField][Min(0)] float _maxHealth = 100;
+        [SerializeField] float _attackRange = 5;
+        [SerializeField] float _attackInterval = 1;
+        [SerializeField] int _damage = 4;
         [SerializeField] Transform _model;
         [Foldout("Feedbacks", true)]
         [SerializeField] MMF_Player _onDamage;
         [SerializeField] MMF_Player _onDeath;
+        [SerializeField] MMF_Player _onAttack;
         float _health;
         PlayerEntity _player;
         NavMeshAgent _agent;
@@ -33,8 +37,10 @@ namespace TheRig.Other
         {
             _player = DependencyProvider.Instance.Get<PlayerEntity>();
             _agent = GetComponent<NavMeshAgent>();
+            _agent.stoppingDistance = _attackRange;
             _health = _maxHealth;
             StartCoroutine(Follow());
+            StartCoroutine(CheckForPlayerToAttack());
 
         }
 
@@ -45,6 +51,21 @@ namespace TheRig.Other
                 _agent.SetDestination(_player.transform.position);
                 yield return new WaitForSecondsRealtime(1);
             }
+        }
+
+        IEnumerator CheckForPlayerToAttack()
+        {
+            while (_health > 0 && _player.CurrentHealth > 0)
+            {
+                if (Vector3.Distance(transform.position, _player.transform.position) < _attackRange)
+                {
+                    _player.GetDamage(_damage);
+                    _onAttack.PlayFeedbacks();
+                }
+                
+                yield return new WaitForSecondsRealtime(_attackInterval);
+            }
+
         }
 
         public void GetDamage(int damage)

@@ -9,6 +9,12 @@ namespace TheRig.Player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerEntity : MonoBehaviour
     {
+        public int CurrentHealth
+        {
+            get;
+            private set;
+        }
+
         GameEvents _gameEvents
         {
             get
@@ -30,15 +36,14 @@ namespace TheRig.Player
         float _groundedGravity = .05f;
         float _yDir;
         CharacterController _controller;
-        int _currentHealth;
         bool _isDead;
 
         private void Start()
         {
-            _currentHealth = _maxHealth;
+            CurrentHealth = _maxHealth;
             Cursor.lockState = CursorLockMode.Locked;
             _controller = GetComponent<CharacterController>();
-            _gameEvents.InvokePlayerHealthChanged(_currentHealth);
+            _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
         }
 
         void Update()
@@ -66,13 +71,13 @@ namespace TheRig.Player
 
         public void GetDamage(int damage)
         {
-            _currentHealth -= damage;
-            _currentHealth = Mathf.Clamp(_currentHealth, 0, _maxHealth);
+            CurrentHealth -= damage;
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, _maxHealth);
 
-            _gameEvents.InvokePlayerHealthChanged(_currentHealth);
+            _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
 
 
-            if(_currentHealth <= 0)
+            if(CurrentHealth <= 0)
             {
                 HandleDeath();
             }
