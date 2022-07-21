@@ -4,14 +4,29 @@ namespace TheRig.Player
     using System.Collections.Generic;
     using UnityEngine;
     using TheRig.Other;
+    using TheRig.Handler;
+    using ThirdParty.DependencyProvider;
 
     public class SpawnAreaDetector : MonoBehaviour
     {
+        EnemySpawnHandler _spawnHandler
+        {
+            get
+            {
+                return DependencyProvider.Instance.Get<EnemySpawnHandler>();
+            }
+        }
+
         [SerializeField][Min(10)] int _visualAngle = 40;
         [Foldout("non-designer", false)][SerializeField] LayerMask _allLayersToCheck;
         [Foldout("non-designer", false)][SerializeField] LayerMask _wantedLayer;
         List<SpawnArea> _visibleSpawnAreas = new List<SpawnArea>();
         [SerializeField] float _maxDistanceForRay = 2000;
+
+        void Start()
+        {
+            _spawnHandler.Init(this);
+        }
 
         public List<SpawnArea> GetVisibleSpawnAreas()
         {

@@ -5,25 +5,17 @@ namespace TheRig.Handler
     using UnityEngine;
     using TheRig.Other;
     using TheRig.Player;
-    using ThirdParty.DependencyProvider;
 
     public class EnemySpawnHandler : MonoBehaviour
     {
-        SpawnAreaDetector _detector
-        {
-            get
-            {
-                return DependencyProvider.Instance.Get<SpawnAreaDetector>();
-            }
-        }
-
+        SpawnAreaDetector _detector;
         [SerializeField] float _spawnIntervals; // game values?
         List<SpawnArea> _areas = new List<SpawnArea>();
         List<SpawnArea> _visibleAreas = new List<SpawnArea>();
 
-        void Start()
+        public void Init(SpawnAreaDetector detector)
         {
-            if(_detector == null) Debug.Log($"null");
+            _detector = detector;
             StartCoroutine(SpawnCoroutine());
         }
 
@@ -45,6 +37,7 @@ namespace TheRig.Handler
             while (true)
             {
                 _visibleAreas.Clear();
+                if(_detector == null) Debug.Log($"detector null");
                 _visibleAreas = _detector.GetVisibleSpawnAreas();
 
                 foreach (SpawnArea area in _areas)

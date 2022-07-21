@@ -4,5 +4,20 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/Management.unity
+    guid: ca6b1fe34e4cf40109d5851412e4ab74
+  - enabled: 1
+    path: Assets/Scenes/Player.unity
+    guid: 8c4a7af7cf3974e0493329da06c1ee44
+  - enabled: 1
+    path: Assets/Scenes/GameplayOilRig.unity
+    guid: 15ddff0d25b6145b59d9fdd496905d05
+  - enabled: 1
+    path: Assets/Scenes/Oil_Rig_Blockout.unity
+    guid: cfe8060ca364483439edb4507f44e56d
+  - enabled: 1
+    path: Assets/Scenes/UI.unity
+    guid: b1d1b6408e9214f64820ba1578599f77
   m_configObjects: {}
