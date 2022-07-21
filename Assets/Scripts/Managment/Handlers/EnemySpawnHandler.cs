@@ -8,8 +8,8 @@ namespace TheRig.Handler
 
     public class EnemySpawnHandler : MonoBehaviour
     {
+        [SerializeField] GameValues _gv;
         SpawnAreaDetector _detector;
-        [SerializeField] float _spawnIntervals; // game values?
         List<SpawnArea> _areas = new List<SpawnArea>();
         List<SpawnArea> _visibleAreas = new List<SpawnArea>();
 
@@ -50,7 +50,7 @@ namespace TheRig.Handler
                     area.Spawn();
                 }
 
-                yield return new WaitForSecondsRealtime(_spawnIntervals);
+                yield return new WaitForSecondsRealtime(_gv.SpawnInterval);
             }
         }
     }
