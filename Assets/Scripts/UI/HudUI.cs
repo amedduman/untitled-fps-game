@@ -17,16 +17,11 @@ namespace TheRig.UI
         [SerializeField] TextMeshProUGUI _xpText;
         [SerializeField] float _hitFeedbackFadeOutDuration = 1;
 
-        GameEvents _gameEvents
-        {
-            get
-            {
-                return DependencyProvider.Instance.Get<GameEvents>();
-            }
-        }
+        GameEvents _gameEvents;
 
         private void Awake()
         {
+            _gameEvents = DependencyProvider.Instance.Get<GameEvents>();
             _hitFeedbackImage.DOFade(0,0);
         }
 

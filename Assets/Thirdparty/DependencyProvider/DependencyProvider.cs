@@ -9,26 +9,15 @@ namespace ThirdParty.DependencyProvider
         public static DependencyProvider Instance { get; private set; }
 
         List<object> RegisteredItems = new List<object>();
-        static bool _hasInitialized = false;
 
         private void Awake()
         {
-            if (!_hasInitialized)
-            {
-                Instance = this;
-                _hasInitialized = true;
-            }
-            else
-            {
-                Debug.LogError($"There are two {nameof(DependencyProvider)} in opened scene(s)");
-                Debug.Break();
-            }
+            Instance = this;
         }
 
-        private void OnDestroy()
+        private void OnDestroy()  
         {
             Instance = null;
-            _hasInitialized = false;
         }
 
         #region Register
@@ -72,7 +61,7 @@ namespace ThirdParty.DependencyProvider
             {
                 if (item is T)
                 {
-                    if (ext.IsNullOrDestroyed(item))
+                    if (IsNullOrDestroyed(item))
                     {
                         Deregister(item);
                         break;
@@ -85,12 +74,7 @@ namespace ThirdParty.DependencyProvider
             return null;
         }
 
-
-    }
-
-    public static class ext
-    {
-        public static bool IsNullOrDestroyed(this System.Object obj)
+        bool IsNullOrDestroyed(System.Object obj)
         {
 
             if (object.ReferenceEquals(obj, null)) return true;
@@ -99,7 +83,5 @@ namespace ThirdParty.DependencyProvider
 
             return false;
         }
-
     }
-
 }
