@@ -9,7 +9,6 @@ namespace TheRig.Player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerEntity : MonoBehaviour
     {
-        [SerializeField] Transform _cube;
         GameEvents _gameEvents;
 
         public int CurrentHealth { get; private set; }
@@ -17,7 +16,6 @@ namespace TheRig.Player
         [SerializeField] int _maxHealth = 100;
         [SerializeField] Gun _gun;
         [SerializeField] float _speed = .1f;
-        [SerializeField] float _rotateSensitivity = .1f;
         [Foldout("non-designer", false)][SerializeField] InputActionReference _movement, _pointerPos, _shoot, _reload;
         [Foldout("non-designer", false)][SerializeField] LayerMask _ground;
 
@@ -55,9 +53,9 @@ namespace TheRig.Player
                             ray.direction,
                             out hit, Mathf.Infinity, _ground))
             {
-                _cube.transform.position = hit.point;
+                transform.LookAt(hit.point);
             }
-            transform.LookAt(_cube);
+            
         }
 
         private Vector3 Movement()
