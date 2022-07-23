@@ -15,22 +15,13 @@
                     "initialStateCheck": true
                 },
                 {
-                    "name": "PlayerRotate",
+                    "name": "PointerPosition",
                     "type": "Value",
                     "id": "18a68192-627e-41a8-8057-a97f56a983e0",
                     "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
-                },
-                {
-                    "name": "Jump",
-                    "type": "Button",
-                    "id": "419bca91-1d15-4287-9fab-1ce7bdb75800",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 },
                 {
                     "name": "Shoot",
@@ -110,22 +101,11 @@
                 {
                     "name": "",
                     "id": "b41a1c83-5433-4985-b7e4-0aa0c409d856",
-                    "path": "<Mouse>/delta",
-                    "interactions": "",
-                    "processors": "InvertVector2(invertX=false)",
-                    "groups": "",
-                    "action": "PlayerRotate",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "911cc251-4cf0-4eec-a2bd-c2e2d340950c",
-                    "path": "<Keyboard>/space",
+                    "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Jump",
+                    "action": "PointerPosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

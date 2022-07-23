@@ -1,6 +1,7 @@
 namespace TheRig.Editor
 {
 #if UNITY_EDITOR
+    using UnityEngine;
     using UnityEditor;
     using UnityEditor.SceneManagement;
 
@@ -12,15 +13,23 @@ namespace TheRig.Editor
         static LoadManagementSceneBeforeEnterPlayMode()
         {
             EditorApplication.playModeStateChanged += LogPlayModeState;
+
         }
 
         private static void LogPlayModeState(PlayModeStateChange state)
         {
+            if(EditorSceneManager.GetActiveScene().isDirty)
+            {
+                Debug.Log("save your scene to be able to open game from any scene");
+                return;
+            }
             if (state == PlayModeStateChange.ExitingEditMode)
             {
                 EditorSceneManager.OpenScene("Assets/Scenes/Management.unity");
             }
         }
     }
+
+
 #endif
 }

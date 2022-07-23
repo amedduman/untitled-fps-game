@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: SceneSetup
   m_EditorClassIdentifier: 
   Setups:
-  - m_Path: Assets/Scenes/Managment.unity
+  - m_Path: Assets/Scenes/Management.unity
     m_IsLoaded: 1
     m_IsActive: 0
     m_IsSubScene: 0

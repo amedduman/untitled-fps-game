@@ -9,6 +9,104 @@ namespace TheRig.Player
     [RequireComponent(typeof(CharacterController))]
     public class PlayerEntity : MonoBehaviour
     {
+        [SerializeField] Transform _cube;
+        GameEvents _gameEvents;
+
+        public int CurrentHealth { get; private set; }
+
+        [SerializeField] int _maxHealth = 100;
+        [SerializeField] Gun _gun;
+        [SerializeField] float _speed = .1f;
+        [SerializeField] float _rotateSensitivity = .1f;
+        [Foldout("non-designer", false)][SerializeField] InputActionReference _movement, _pointerPos, _shoot, _reload;
+        [Foldout("non-designer", false)][SerializeField] LayerMask _ground;
+
+        CharacterController _controller;
+        bool _isDead;
+        int _currentXp;
+
+        void Awake()
+        {
+            Cursor.lockState = CursorLockMode.Confined;
+            _gameEvents = DependencyProvider.Instance.Get<GameEvents>();
+            _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
+            _gameEvents.InvokePlayerXpChanged(_currentXp);
+            _controller = GetComponent<CharacterController>();
+        }
+
+        void Update()
+        {
+            if (_isDead) return;
+
+            Rotation();
+
+            Vector3 moveDir = Movement();
+
+            _controller.Move(moveDir * Time.deltaTime);
+        }
+
+        void Rotation()
+        {
+            Vector3 screenPos = _pointerPos.action.ReadValue<Vector2>();
+            Ray ray = Camera.main.ScreenPointToRay(screenPos);
+
+            RaycastHit hit;
+            if (Physics.Raycast(ray.origin,
+                            ray.direction,
+                            out hit, Mathf.Infinity, _ground))
+            {
+                _cube.transform.position = hit.point;
+            }
+            transform.LookAt(_cube);
+        }
+
+        private Vector3 Movement()
+        {
+            Vector2 movementInput = _movement.action.ReadValue<Vector2>();
+            Vector3 moveDir = (transform.forward * movementInput.y * _speed) +
+            (transform.right * movementInput.x * _speed);
+
+            return moveDir;
+        }
+
+        public void GetDamage(int damage)
+        {
+            CurrentHealth -= damage;
+            CurrentHealth = Mathf.Clamp(CurrentHealth, 0, _maxHealth);
+
+            _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
+
+
+            if (CurrentHealth <= 0)
+            {
+                HandleDeath();
+            }
+        }
+
+        void HandleDeath()
+        {
+            _isDead = true;
+            _gameEvents.InvokePlayerDeath();
+        }
+
+        public void GetXp(int xp)
+        {
+            _currentXp += xp;
+            _gameEvents.InvokePlayerXpChanged(_currentXp);
+        }
+    }
+}
+
+/*
+    using UnityEngine;
+    using UnityEngine.InputSystem;
+    using TheRig.Gun;
+    using TheRig.GameEvents;
+    using ThirdParty.DependencyProvider;
+
+    [RequireComponent(typeof(CharacterController))]
+    public class PlayerEntity : MonoBehaviour
+    {
         public int CurrentHealth
         {
             get;
@@ -165,4 +263,4 @@ namespace TheRig.Player
             }
         }
     }
-}
+*/
