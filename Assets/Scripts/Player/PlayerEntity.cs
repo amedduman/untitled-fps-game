@@ -38,9 +38,7 @@ namespace TheRig.Player
 
             Rotation();
 
-            Vector3 moveDir = Movement();
-
-            _controller.Move(moveDir * Time.deltaTime);
+            Movement();
         }
 
         void Rotation()
@@ -58,14 +56,12 @@ namespace TheRig.Player
             
         }
 
-        private Vector3 Movement()
+        private void Movement()
         {
             Vector2 movementInput = _movement.action.ReadValue<Vector2>();
-            // Vector3 moveDir = (transform.forward * movementInput.y * _speed) +
-            // (transform.right * movementInput.x * _speed);
             Vector3 moveDir = new Vector3(movementInput.x, 0, movementInput.y) * _speed;
 
-            return moveDir;
+            _controller.Move(moveDir * Time.deltaTime);
         }
 
         public void GetDamage(int damage)
