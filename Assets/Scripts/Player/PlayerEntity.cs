@@ -25,7 +25,7 @@ namespace TheRig.Player
 
         void Awake()
         {
-            Cursor.lockState = CursorLockMode.Confined;
+            //Cursor.lockState = CursorLockMode.Confined;
             _gameEvents = DependencyProvider.Instance.Get<GameEvents>();
             _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
             _gameEvents.InvokePlayerXpChanged(_currentXp);
