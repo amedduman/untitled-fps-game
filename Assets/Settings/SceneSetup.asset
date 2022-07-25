@@ -15,19 +15,19 @@ MonoBehaviour:
   Setups:
   - m_Path: Assets/Scenes/Management.unity
     m_IsLoaded: 1
-    m_IsActive: 0
+    m_IsActive: 1
     m_IsSubScene: 0
   - m_Path: Assets/Scenes/Player.unity
     m_IsLoaded: 1
     m_IsActive: 0
     m_IsSubScene: 0
-  - m_Path: Assets/Scenes/Env_Island.unity
+  - m_Path: Assets/Scenes/GameplayIsland.unity
     m_IsLoaded: 1
     m_IsActive: 0
     m_IsSubScene: 0
-  - m_Path: Assets/Scenes/Oil_Rig_Blockout.unity
+  - m_Path: Assets/Scenes/EnvIsland.unity
     m_IsLoaded: 1
-    m_IsActive: 1
+    m_IsActive: 0
     m_IsSubScene: 0
   - m_Path: Assets/Scenes/UI.unity
     m_IsLoaded: 1
