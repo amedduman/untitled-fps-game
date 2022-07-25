@@ -9,7 +9,6 @@ namespace TheRig.Gun
 
     public class GlockEntity : Gun
     {
-        [SerializeField] float _range = 100;
         [SerializeField] int _damage = 10;
         [SerializeField] float _coolDownTime = .2f;
         [SerializeField][Min(0.1f)] float _bulletSpeed = 1;
@@ -77,23 +76,6 @@ namespace TheRig.Gun
 
             bullet.transform.position += vel;
 
-            Vector3 bulletDestination = Vector3.zero;
-
-            // RaycastHit hit;
-            // if (Physics.Raycast(_playerCam.transform.position,
-            //                     _playerCam.transform.forward,
-            //                     out hit, _range,
-            //                     _layers))
-            // {
-            //     Debug.DrawRay(_playerCam.transform.position, _playerCam.transform.forward * hit.distance, Color.green, 1);
-            //     bulletDestination = hit.point;
-            // }
-            // else
-            // {
-            //     Debug.DrawRay(_playerCam.transform.position, _playerCam.transform.forward * _range, Color.red, 1);
-            //     bulletDestination = _playerCam.transform.position + _playerCam.transform.forward * _range;
-            // }
-            bullet.FireUp(bulletDestination, _bulletSpeed, _damage);
             bullet.FireUp(transform.forward, _bulletSpeed, _damage);
         }
     }
