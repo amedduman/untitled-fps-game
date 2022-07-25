@@ -40,7 +40,10 @@ namespace TheRig.Other
         {
             _player = DependencyProvider.Instance.Get<PlayerEntity>();
             _agent = GetComponent<NavMeshAgent>();
-            _agent.stoppingDistance = _attackRange;
+            if(_agent.stoppingDistance > _attackRange)
+            {
+                Debug.LogError($"attack range is too small for enemy");
+            }
             _health = _maxHealth;
             StartCoroutine(Follow());
             StartCoroutine(CheckForPlayerToAttack());

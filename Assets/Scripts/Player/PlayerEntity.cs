@@ -25,22 +25,37 @@ namespace TheRig.Player
 
         void Awake()
         {
-            //Cursor.lockState = CursorLockMode.Confined;
             _gameEvents = DependencyProvider.Instance.Get<GameEvents>();
+            //Cursor.lockState = CursorLockMode.Confined;
+            CurrentHealth = _maxHealth;
+            _controller = GetComponent<CharacterController>();
+        }
+
+        void Start()
+        {
             _gameEvents.InvokePlayerHealthChanged(CurrentHealth);
             _gameEvents.InvokePlayerXpChanged(_currentXp);
-            _controller = GetComponent<CharacterController>();
         }
 
         void Update()
         {
             if (_isDead) return;
 
+            Reload();
+
             Rotation();
 
             Movement();
 
             Shoot();
+        }
+
+        void Reload()
+        {
+            if (_reload.action.triggered)
+            {
+                _gun.ForceReload();
+            }
         }
 
         void Rotation()
@@ -55,7 +70,7 @@ namespace TheRig.Player
             {
                 transform.LookAt(hit.point);
             }
-            
+
         }
 
         private void Movement()
