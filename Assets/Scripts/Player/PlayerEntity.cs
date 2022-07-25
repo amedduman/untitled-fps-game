@@ -2,6 +2,7 @@ namespace TheRig.Player
 {
     using UnityEngine;
     using UnityEngine.InputSystem;
+    using DG.Tweening;
     using TheRig.Gun;
     using TheRig.GameEvents;
     using ThirdParty.DependencyProvider;
@@ -68,7 +69,9 @@ namespace TheRig.Player
                             ray.direction,
                             out hit, Mathf.Infinity, _ground))
             {
-                transform.LookAt(hit.point);
+                Vector3 direction = (hit.point - transform.position).normalized;
+                Quaternion lookRotation = Quaternion.LookRotation(direction);
+                transform.rotation = Quaternion.Euler(0, lookRotation.eulerAngles.y, 0);
             }
 
         }

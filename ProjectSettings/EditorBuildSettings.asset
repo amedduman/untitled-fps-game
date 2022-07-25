@@ -12,11 +12,11 @@ EditorBuildSettings:
     path: Assets/Scenes/Player.unity
     guid: 8c4a7af7cf3974e0493329da06c1ee44
   - enabled: 1
-    path: Assets/Scenes/GameplayOilRig.unity
+    path: Assets/Scenes/GameplayIsland.unity
     guid: 15ddff0d25b6145b59d9fdd496905d05
   - enabled: 1
-    path: Assets/Scenes/Oil_Rig_Blockout.unity
-    guid: cfe8060ca364483439edb4507f44e56d
+    path: Assets/Scenes/EnvIsland.unity
+    guid: ea584ae8313b84872b481d0ae617e681
   - enabled: 1
     path: Assets/Scenes/UI.unity
     guid: b1d1b6408e9214f64820ba1578599f77
