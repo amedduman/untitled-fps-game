@@ -423,7 +423,7 @@ MonoBehaviour:
   _range: 2000
   _damage: 10
   _coolDownTime: 0.05
-  _bulletSpeed: 1000
+  _bulletSpeed: 100
   _ammoPrefab: {fileID: 1200522090904868429, guid: f91f804de8da34881a88b1d1dc2eddc2, type: 3}
   _rightGunFired: {fileID: 8814153530935052159}
   _leftGunFired: {fileID: 2483944576930762205}

@@ -19,8 +19,9 @@ namespace TheRig.Ammo
         public override void FireUp(Vector3 destination, float bulletSpeed, int damage)
         {
             _damage = damage;
-            Vector3 dir = (destination - transform.position).normalized;
-            _rb.AddForce(dir * bulletSpeed, ForceMode.VelocityChange);
+            // Vector3 dir = (destination - transform.position).normalized;
+            // _rb.AddForce(dir * bulletSpeed, ForceMode.VelocityChange);
+            _rb.AddForce(destination * bulletSpeed, ForceMode.VelocityChange);
         }
 
         private void OnCollisionEnter(Collision other)

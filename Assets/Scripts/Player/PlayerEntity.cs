@@ -39,6 +39,8 @@ namespace TheRig.Player
             Rotation();
 
             Movement();
+
+            Shoot();
         }
 
         void Rotation()
@@ -62,6 +64,14 @@ namespace TheRig.Player
             Vector3 moveDir = new Vector3(movementInput.x, 0, movementInput.y) * _speed;
 
             _controller.Move(moveDir * Time.deltaTime);
+        }
+
+        private void Shoot()
+        {
+            if (_shoot.action.inProgress)
+            {
+                _gun.GetComponent<Gun>().Shoot(_controller.velocity * Time.deltaTime);
+            }
         }
 
         public void GetDamage(int damage)
