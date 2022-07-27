@@ -24,12 +24,6 @@ namespace TheRig.GameEvents
             OnGunReloadComplete?.Invoke(maxAmmo);
         }
 
-        public event Action OnEnemyGetDamaged;
-        public void InvokeEnemyGetDamaged()
-        {
-            OnEnemyGetDamaged?.Invoke();
-        }
-
         public event Action<int> OnPlayerXpChanged;
         public void InvokePlayerXpChanged(int xp)
         {

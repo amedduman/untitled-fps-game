@@ -78,7 +78,6 @@ namespace TheRig.Other
         {
             if (_health <= 0) return;
             _onDamage.PlayFeedbacks();
-            _gameEvents.InvokeEnemyGetDamaged();
             _health -= damage;
             _health = Mathf.Clamp(_health, 0, _maxHealth);
             if (_health <= 0)
