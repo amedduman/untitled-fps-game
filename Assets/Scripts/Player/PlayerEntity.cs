@@ -26,7 +26,6 @@ namespace TheRig.Player
         void Awake()
         {
             _gameEvents = DependencyProvider.Instance.Get<GameEvents>();
-            //Cursor.lockState = CursorLockMode.Confined;
             CurrentHealth = _maxHealth;
             _controller = GetComponent<CharacterController>();
         }

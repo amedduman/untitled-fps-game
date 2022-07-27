@@ -9,6 +9,8 @@ namespace TheRig.Gun
 
     public class GlockEntity : Gun
     {
+        Camera _playerCam;
+
         [SerializeField] int _damage = 10;
         [SerializeField] float _coolDownTime = .2f;
         [SerializeField][Min(0.1f)] float _bulletSpeed = 1;
@@ -21,7 +23,6 @@ namespace TheRig.Gun
         [Foldout("non-designer", false)][SerializeField] Transform _bulletSpawnPointRight;
         [Foldout("non-designer", false)][SerializeField] Transform _bulletSpawnPointLeft;
 
-        Camera _playerCam;
         bool _isRight = true;
         bool _inCoolDown = false;
 

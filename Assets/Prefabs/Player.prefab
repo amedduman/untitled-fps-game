@@ -294,10 +294,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Glock
       objectReference: {fileID: 0}
-    - target: {fileID: 3345521250665429499, guid: 770e8f5565d654ebd943aae127d966ef, type: 3}
-      propertyPath: _bulletSpeed
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 770e8f5565d654ebd943aae127d966ef, type: 3}
 --- !u!114 &470098245420320028 stripped
