@@ -1,16 +1,13 @@
 namespace TheRig.UI
 {
     using UnityEngine;
-    using UnityEngine.UI;
     using TMPro;
-    using DG.Tweening;
     using TheRig.Gun;
     using ThirdParty.DependencyProvider;
     using TheRig.GameEvents;
 
     public class HudUI : MonoBehaviour
     {
-        [SerializeField] Image _crosshairImage;
         [SerializeField] TextMeshProUGUI _ammoText;
         [SerializeField] TextMeshProUGUI _healthText;
         [SerializeField] TextMeshProUGUI _xpText;
@@ -42,7 +39,6 @@ namespace TheRig.UI
 
         void HandleGunChanged(Gun newGun)
         {
-            _crosshairImage.sprite = newGun.Crosshair;
             SetAmmoText(newGun.MaxAmmo);
         }
 
