@@ -1,56 +1,47 @@
 namespace TheRig.Handler
 {
-    using System.Collections;
-    using System.Collections.Generic;
     using UnityEngine;
     using TheRig.Other;
     using TheRig.Player;
+    using ThirdParty.DependencyProvider;
 
     public class EnemySpawnHandler : MonoBehaviour
     {
+        PlayerEntity _player;
+
         [SerializeField] GameValues _gv;
-        SpawnAreaDetector _detector;
-        List<SpawnArea> _areas = new List<SpawnArea>();
-        List<SpawnArea> _visibleAreas = new List<SpawnArea>();
+        [SerializeField] float _spawnRange = 1;
+        [SerializeField] int _spawnPoints = 1;
+        [SerializeField] bool _drawGizmos = true;
 
-        public void Init(SpawnAreaDetector detector)
+        void Start()
         {
-            _detector = detector;
-            StartCoroutine(SpawnCoroutine());
+            _player = DependencyProvider.Instance.Get<PlayerEntity>();
         }
 
-        public void AddArea(SpawnArea area)
+        void OnDrawGizmos()
         {
-            if (area != null)
-            {
-                _areas.Add(area);
-            }
-            else
-            {
-                Debug.LogError("area should not be null");
-                Debug.Break();
-            }
-        }
+            if(!_drawGizmos) return;
 
-        IEnumerator SpawnCoroutine()
-        {
-            while (true)
-            {
-                _visibleAreas.Clear();
-                if(_detector == null) Debug.Log($"detector null");
-                _visibleAreas = _detector.GetVisibleSpawnAreas();
+            PlayerEntity player = FindObjectOfType<PlayerEntity>();
+            Gizmos.DrawWireSphere(player.transform.position, _spawnRange);
+            if(_spawnPoints <= 0) return;
+            float degree = 360 / _spawnPoints;
+            Vector3 center = player.transform.position;
 
-                foreach (SpawnArea area in _areas)
+            for (int i = 0; i < _spawnPoints; i++)
+            {
+                var x = Quaternion.AngleAxis(degree * i, Vector3.up);
+                Vector3 rotatedVector = Quaternion.AngleAxis(degree * i, Vector3.up) * center;
+                if(i == 0)
                 {
-                    if (_visibleAreas.Contains(area))
-                    {
-                        continue;
-                    }
-
-                    area.Spawn();
+                    Gizmos.color = Color.green;
                 }
-
-                yield return new WaitForSecondsRealtime(_gv.SpawnInterval);
+                else
+                {
+                    Gizmos.color = Color.red;
+                }
+                Gizmos.DrawSphere(center + rotatedVector.normalized * _spawnRange, .11f);
             }
         }
     }

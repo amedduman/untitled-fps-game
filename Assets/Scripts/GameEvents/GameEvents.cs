@@ -6,6 +6,7 @@ namespace TheRig.GameEvents
 
     public class GameEvents : MonoBehaviour
     {
+        #region Gun
         public event Action<Gun> OnGunChanged;
         public void InvokeOnGunChanged(Gun gun)
         {
@@ -23,7 +24,9 @@ namespace TheRig.GameEvents
         {
             OnGunReloadComplete?.Invoke(maxAmmo);
         }
+        #endregion
 
+        #region Player
         public event Action<int> OnPlayerXpChanged;
         public void InvokePlayerXpChanged(int xp)
         {
@@ -35,11 +38,12 @@ namespace TheRig.GameEvents
         {
             OnPlayerHealthChanged?.Invoke(currentHealth);
         }
-        
+
         public event Action OnPlayerDeath;
         public void InvokePlayerDeath()
         {
             OnPlayerDeath?.Invoke();
         }
+        #endregion
     }
 }
