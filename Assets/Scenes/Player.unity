@@ -1000,6 +1000,22 @@ PrefabInstance:
       propertyPath: _spawnPointCount
       value: 12
       objectReference: {fileID: 0}
+    - target: {fileID: 6352358127890439235, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}
+      propertyPath: _spawnDataList.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352358127890439235, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}
+      propertyPath: _spawnDataList.Array.data[0].UntilThisTime
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352358127890439235, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}
+      propertyPath: _spawnDataList.Array.data[0].MaxEnemyLimitForThisTime
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 6352358127890439235, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}
+      propertyPath: _spawnDataList.Array.data[1].SpawnPhaseEndTimeInMinutes
+      value: 3
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 63a053e53e8ba4c95b9245ed54ce007b, type: 3}
 --- !u!4 &5199264495988412108 stripped

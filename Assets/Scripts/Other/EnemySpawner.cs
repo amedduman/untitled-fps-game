@@ -12,6 +12,7 @@ namespace TheRig.Other
         [SerializeField] float _spawnRange = 1;
         [SerializeField] int _spawnPointCount = 5;
         [SerializeField] bool _drawGizmos = true;
+        [SerializeField] List<SpawnData> _spawnDataList = new List<SpawnData>();
 
         List<Transform> _spawnPoints = new List<Transform>();
 
@@ -66,4 +67,14 @@ namespace TheRig.Other
             }
         }
     }
+}
+
+[System.Serializable]
+public struct SpawnData
+{
+    public int SpawnPhaseStartTimeInMinutes;
+    public int SpawnPhaseEndTimeInMinutes;
+    public int MaxEnemyLimitForSpawnPhase;
+    public int RandomRangeMinLimitForSpawnPhaseInSeconds;
+    public int RandomRangeMaxLimitForSpawnPhaseInSeconds;
 }
