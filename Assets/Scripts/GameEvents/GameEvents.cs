@@ -45,5 +45,11 @@ namespace TheRig.GameEvents
             OnPlayerDeath?.Invoke();
         }
         #endregion
+    
+        public event Action<int> OnGameplaySessionTimeInSecondsChange;
+        public void InvokeGameplaySessionTimeInSecondsChange(int remainingTime)
+        {
+            OnGameplaySessionTimeInSecondsChange?.Invoke(remainingTime);
+        }
     }
 }

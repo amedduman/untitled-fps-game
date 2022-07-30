@@ -11,6 +11,9 @@ namespace TheRig.UI
         [SerializeField] TextMeshProUGUI _ammoText;
         [SerializeField] TextMeshProUGUI _healthText;
         [SerializeField] TextMeshProUGUI _xpText;
+        [SerializeField] TextMeshProUGUI _remainingMinutesText;
+        [SerializeField] TextMeshProUGUI _remainingSecondsText;
+
 
         GameEvents _gameEvents;
 
@@ -26,6 +29,7 @@ namespace TheRig.UI
             _gameEvents.OnGunReloadComplete += HandleGunReloadComplete;
             _gameEvents.OnPlayerHealthChanged += HandlePlayerGetDamage;
             _gameEvents.OnPlayerXpChanged += HandleXpChanged;
+            _gameEvents.OnGameplaySessionTimeInSecondsChange += HandleGameplayTimerChanged;
         }
 
         private void OnDisable()
@@ -35,6 +39,7 @@ namespace TheRig.UI
             _gameEvents.OnGunReloadComplete -= HandleGunReloadComplete;
             _gameEvents.OnPlayerHealthChanged -= HandlePlayerGetDamage;
             _gameEvents.OnPlayerXpChanged -= HandleXpChanged;
+            _gameEvents.OnGameplaySessionTimeInSecondsChange -= HandleGameplayTimerChanged;
         }
 
         void HandleGunChanged(Gun newGun)
@@ -62,9 +67,28 @@ namespace TheRig.UI
             _xpText.text = currentXp.ToString();
         }
 
+        void HandleGameplayTimerChanged(int remainingTimeInSeconds)
+        {
+            Vector2 MinutesAndSeconds = ConvertSecondsToMinutesAndSeconds(remainingTimeInSeconds);
+            _remainingMinutesText.text = MinutesAndSeconds.x.ToString();
+            _remainingSecondsText.text = MinutesAndSeconds.y.ToString();
+        }
+
+
         void SetAmmoText(int remainingAmmo)
         {
             _ammoText.text = remainingAmmo.ToString();
+        }
+
+        Vector2 ConvertSecondsToMinutesAndSeconds(int seconds)
+        {
+            int minutes = 0;
+            while(seconds - 60 >= 0)
+            {
+                seconds -= 60;
+                minutes++;
+            }
+            return new Vector2(minutes, seconds);
         }
     }
 }
