@@ -1,24 +1,65 @@
 namespace TheRig.Other
 {
+    using System.Collections;
     using System.Collections.Generic;
     using UnityEngine;
     using TheRig.Player;
+    using TheRig.GameEvents;
     using ThirdParty.DependencyProvider;
 
     public class EnemySpawner : MonoBehaviour
     {
         PlayerEntity _player;
+        GameEvents _gameEvents;
 
+        [SerializeField] GameValues _gv;
         [SerializeField] float _spawnRange = 1;
         [SerializeField] int _spawnPointCount = 5;
         [SerializeField] bool _drawGizmos = true;
         [SerializeField] List<SpawnData> _spawnDataList = new List<SpawnData>();
 
+        SpawnData _spawnData;
+        int _currentGameTimeInSeconds;
         List<Transform> _spawnPoints = new List<Transform>();
+
+        void Awake()
+        {
+            _gameEvents = DependencyProvider.Instance.Get<GameEvents>();
+        }
+
+        void OnEnable()
+        {
+            _gameEvents.OnGameplaySessionTimeInSecondsChange += UpdateGameTime;
+        }
+
+        void OnDisable()
+        {
+            _gameEvents.OnGameplaySessionTimeInSecondsChange -= UpdateGameTime;
+        }
 
         void Start()
         {
             _player = DependencyProvider.Instance.Get<PlayerEntity>();
+            StartCoroutine(Spawn());
+        }
+
+        IEnumerator Spawn()
+        {
+            int elapsedTimeInSeconds = (_gv.GameplaySessionTimeInMinutes * 60) - _currentGameTimeInSeconds;
+            for (int i = 0; i < _spawnDataList.Count; i++)
+            {
+                if (elapsedTimeInSeconds < _spawnDataList[i].DurationInMinutes * 60)
+                {
+
+                }
+            }
+
+            yield return new WaitForSecondsRealtime(1);
+        }
+
+        void UpdateGameTime(int newTimeInSeconds)
+        {
+            _currentGameTimeInSeconds = newTimeInSeconds;
         }
 
         [ContextMenu("generate spawners")]
@@ -27,12 +68,12 @@ namespace TheRig.Other
             GenerateSpawners(_spawnPointCount);
         }
 
-        void GenerateSpawners(int spawnerCount  = 5)
+        void GenerateSpawners(int spawnerCount = 5)
         {
             _spawnPoints.Clear();
             for (int i = transform.childCount - 1; i > 0; i--)
             {
-                if(Application.isPlaying)
+                if (Application.isPlaying)
                 {
                     Destroy(transform.GetChild(i).gameObject);
                 }
@@ -58,7 +99,7 @@ namespace TheRig.Other
 
         void OnDrawGizmos()
         {
-            if(!_drawGizmos) return;
+            if (!_drawGizmos) return;
             Gizmos.DrawWireSphere(transform.position, _spawnRange);
             Gizmos.color = Color.red;
             foreach (var item in _spawnPoints)
@@ -72,7 +113,7 @@ namespace TheRig.Other
 [System.Serializable]
 public struct SpawnData
 {
-    public int SpawnPhaseStartTimeInMinutes;
+    public int DurationInMinutes;
     public int SpawnPhaseEndTimeInMinutes;
     public int MaxEnemyLimitForSpawnPhase;
     public int RandomRangeMinLimitForSpawnPhaseInSeconds;
